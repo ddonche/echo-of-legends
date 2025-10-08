@@ -3,4 +3,5 @@
 /// import game/hero
 /// import data/weapons
 
-say "Welcome to the Horde!"
+say "Welcome to Echo of Legends!"
+say "The journey begins..."

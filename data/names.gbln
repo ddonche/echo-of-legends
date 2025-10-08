@@ -1,0 +1,15 @@
+/// data/names module
+
+act get_name
+  first_names = ["Gareth", "Mira", "Lysa", "Corin", "Rook", "Arin", "Nyx"]
+  last_names  = ["the Bold", "Shadowstep", "Ironleaf", "Stormborn", "Ashvale", "Thorne"]
+  
+  first = pick 1 from first_names
+  last  = pick 1 from last_names
+  first ++ last
+end
+
+act get_class
+  classes = ["Warrior", "Mage", "Rogue", "Peasant"]
+  pick 1 from classes
+end

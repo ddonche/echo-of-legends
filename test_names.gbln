@@ -1,0 +1,12 @@
+first_names = ["Gareth", "Mira", "Lysa", "Corin", "Rook", "Arin", "Nyx"]
+last_names  = ["the Bold", "Shadowstep", "Ironleaf", "Stormborn", "Ashvale", "Thorne"]
+
+classes = ["Warrior", "Mage", "Rogue"]
+
+first = pick 1 from first_names
+last  = pick 1 from last_names
+hero_name   = first ++ last
+hero_class  = pick 1 from classes
+
+say hero_name
+say hero_class

@@ -1,0 +1,43 @@
+import {names} from data
+/// Starting equipment by class
+act starter_gear(class) 
+  judge
+    class == "Warrior": ["sword", "shield", "armor"]
+    class == "Mage":    ["staff", "robe", "spellbook"]
+    class == "Rogue":   ["dagger", "cloak", "lockpick"]
+    else:               ["stick"]
+  end
+end
+/// Roll a block of classic RPG stats
+act roll_stats
+    health = roll 3d6+6
+    strength = roll 3d6
+    magic = roll 3d6
+    agility = roll 3d6
+    return health, strength, magic, agility
+xx
+
+/// Full hero generator
+act create_hero
+  name = names::get_name()
+  class = names::get_class()
+  stats = roll_stats()
+  inventory = starter_gear(class)
+  return name, class, stats, inventory
+end
+
+/// Create the hero at startup
+hero = create_hero()
+
+/// Display function
+act show_hero
+  say "=== Your Hero ==="
+  say hero >> name + " the " + hero >> class
+  say "Health: " + hero >> stats >> health
+  say "Strength: " + hero >> stats >> strength
+  say "Magic: " + hero >> stats >> magic
+  say "Agility: " + hero >> stats >> agility
+  say "Inventory: " + hero >> inventory
+end
+
+show_hero()
