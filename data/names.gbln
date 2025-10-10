@@ -1,8 +1,8 @@
 /// data/names module
 
 act get_name
-  first_names = ["Gareth", "Mira", "Lysa", "Corin", "Rook", "Arin", "Nyx"]
-  last_names  = ["the Bold", "Shadowstep", "Ironleaf", "Stormborn", "Ashvale", "Thorne"]
+  first_names = ["Arin", "Borbrat", "Corin", "Demart", "Faesk", "Gareth", "Koryn", "Lysa", "Malson", "Mira", "Nyx", "Rook", "Shigar", "Vorgin"]
+  last_names = ["Ashvale", "Castle", "Ironleaf", "Ivoryhand", "Rose", "Shadowstep", "Stormborn", "the Bold", "the Mean", "the Rough", "the Small", "the Wounded", "Thorne"]
   
   first = pick 1 from first_names
   last  = pick 1 from last_names

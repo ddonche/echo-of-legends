@@ -1,7 +1,28 @@
-/// Main entry point
-/// Example imports (uncomment when you create modules):
-/// import game/hero
-/// import data/weapons
+import game/hero as h
+import game/world as w
+import game/commands as cmd
 
-say "Welcome to Echo of Legends!"
-say "The journey begins..."
+say "==================================="
+say "   ECHO OF LEGENDS"
+say "==================================="
+say ""
+
+/// Create hero
+h::show_hero()
+say ""
+
+/// Initialize world
+location = w::init_world()
+say ""
+w::look(location)
+say ""
+say "Type 'help' for available commands."
+say ""
+/// Game loop
+playing = true
+while playing == true
+  input = ask("> ")
+  say ""
+  playing, location = cmd::handle_command(location, input)
+  say ""
+end

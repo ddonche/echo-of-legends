@@ -1,29 +1,41 @@
 import {names} from data
+
 /// Starting equipment by class
 act starter_gear(class) 
-  judge
-    class == "Warrior": ["sword", "shield", "armor"]
-    class == "Mage":    ["staff", "robe", "spellbook"]
-    class == "Rogue":   ["dagger", "cloak", "lockpick"]
-    else:               ["stick"]
+  judge using class
+    == "Warrior": ["sword", "shield", "armor"]
+    == "Mage":    ["staff", "robe", "spellbook"]
+    == "Rogue":   ["dagger", "cloak", "lockpick"]
+    else:         ["stick"]
   end
 end
+
 /// Roll a block of classic RPG stats
 act roll_stats
-    health = roll 3d6+6
-    strength = roll 3d6
-    magic = roll 3d6
-    agility = roll 3d6
-    return health, strength, magic, agility
-xx
+  health = roll 3d6+6
+  strength = roll 3d6
+  magic = roll 3d6
+  agility = roll 3d6
+  return health, strength, magic, agility
+end
 
 /// Full hero generator
 act create_hero
-  name = names::get_name()
-  class = names::get_class()
-  stats = roll_stats()
-  inventory = starter_gear(class)
-  return name, class, stats, inventory
+  hero_name = names::get_name()
+  hero_class = names::get_class()
+  hero_stats = roll_stats()
+  hero_inventory = starter_gear(hero_class)
+  
+  new_hero = {
+    name: hero_name,
+    class: hero_class,
+    stats: hero_stats,
+    inventory: hero_inventory,
+    max_inventory: 10,
+    equipped: { weapon: nil }
+  }
+  
+  return new_hero
 end
 
 /// Create the hero at startup
@@ -32,12 +44,160 @@ hero = create_hero()
 /// Display function
 act show_hero
   say "=== Your Hero ==="
-  say hero >> name + " the " + hero >> class
-  say "Health: " + hero >> stats >> health
-  say "Strength: " + hero >> stats >> strength
-  say "Magic: " + hero >> stats >> magic
-  say "Agility: " + hero >> stats >> agility
-  say "Inventory: " + hero >> inventory
+  say hero >> name ++ " the " ++ hero >> class
+  say "Health: " ++ hero >> stats >> health
+  say "Strength: " ++ hero >> stats >> strength
+  say "Magic: " ++ hero >> stats >> magic
+  say "Agility: " ++ hero >> stats >> agility
+  say "Inventory: " ++ hero >> inventory
 end
 
-show_hero()
+act show_inventory
+  inv_len = hero >> inventory.len
+  say "=== Inventory (" ++ inv_len ++ "/" ++ hero >> max_inventory ++ ") ==="
+  
+  if inv_len == 0
+    say "Your pack is empty."
+    return
+  end
+  
+  for item in hero >> inventory
+    say "  - " ++ item >> name
+  end
+end
+
+/// Add item to inventory
+act add_to_inventory(item)
+  if hero >> inventory.len >= hero >> max_inventory
+    say "Your pack is full! Drop or use something first."
+    return false
+  end
+  
+  /// Use put_last! mutation
+  put_last!(hero >> inventory, item)
+  return true
+end
+
+/// Remove item from inventory by ID
+act remove_from_inventory(item_id)
+  /// Find the item and its index
+  item = nil
+  item_index = -1
+  i = 0
+  for potential_item in hero >> inventory
+    if potential_item >> id == item_id
+      item = potential_item
+      item_index = i
+      break
+    end
+    i = i + 1
+  end
+  
+  if item == nil
+    return nil
+  end
+  
+  /// Use delete_at! mutation
+  delete_at!(hero >> inventory, item_index)
+  return item
+end
+
+/// Equip weapon
+act equip_weapon(item_id)
+  /// Find item in inventory
+  item = nil
+  for i in hero >> inventory
+    if i >> id == item_id
+      item = i
+      break
+    end
+  end
+  
+  if item == nil
+    say "You don't have that item."
+    return false
+  end
+  
+  if item >> type != "weapon"
+    say "You can't equip that."
+    return false
+  end
+  
+  /// Unequip current weapon if any
+  if hero >> equipped >> weapon != nil
+    say "You unequip: " ++ hero >> equipped >> weapon >> name
+  end
+  
+  /// Equip new weapon
+  hero >> equipped >> weapon = item
+  say "You equipped: " ++ item >> name
+  say "Damage: " ++ item >> properties >> damage
+  
+  return true
+end
+
+/// Use consumable
+act use_item(item_id)
+  /// Find item in inventory
+  item = nil
+  item_index = -1
+  i = 0
+  for potential_item in hero >> inventory
+    if potential_item >> id == item_id
+      item = potential_item
+      item_index = i
+      break
+    end
+    i = i + 1
+  end
+  
+  if item == nil
+    say "You don't have that item."
+    return false
+  end
+  
+  if item >> type != "consumable"
+    say "You can't use that."
+    return false
+  end
+  
+  /// Apply healing if it has the property
+  props = item >> properties
+  /// Check if heal property exists (it will be nil if not)
+  if props >> heal != nil
+    heal_amount = roll_str(props >> heal)
+    hero >> stats >> health = hero >> stats >> health + heal_amount
+    say "You used " ++ item >> name ++ " and healed " ++ heal_amount ++ " HP."
+    say "Current health: " ++ hero >> stats >> health
+  end
+  
+  /// Remove from inventory using delete_at!
+  delete_at!(hero >> inventory, item_index)
+  
+  return true
+end
+
+/// Show equipment
+act show_equipment
+  say "=== Equipment ==="
+  
+  if hero >> equipped >> weapon != nil
+    weapon = hero >> equipped >> weapon
+    say "Weapon: " ++ weapon >> name
+    say "  Damage: " ++ weapon >> properties >> damage
+    say "  " ++ weapon >> properties >> description
+  else
+    say "Weapon: None (fighting unarmed)"
+  end
+end
+
+/// Drop item from inventory
+act drop_item(item_id)
+  item = remove_from_inventory(item_id)
+  if item != nil
+    return item
+  else
+    say "You don't have that item."
+    return nil
+  end
+end

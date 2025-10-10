@@ -1,0 +1,134 @@
+/// data/items module
+/// Modular weapon generation
+weapon_materials = ["rusty", "iron", "steel", "silver", "enchanted"]
+weapon_types = ["sword", "axe", "dagger", "mace", "spear"]
+
+material_stats = {
+  rusty:     { bonus: -1, description: "badly weathered" },
+  iron:      { bonus: 0,  description: "solid and reliable" },
+  steel:     { bonus: 1,  description: "well-crafted" },
+  silver:    { bonus: 2,  description: "gleaming and sharp" },
+  enchanted: { bonus: 3,  description: "humming with power" }
+}
+
+weapon_base_damage = {
+  sword:  "1d8",
+  axe:    "1d10",
+  dagger: "1d4",
+  mace:   "1d6",
+  spear:  "1d8"
+}
+
+act generate_weapon
+  material = pick 1 from weapon_materials
+  kind = pick 1 from weapon_types   /// was: type
+
+  base_damage = weapon_base_damage[kind]
+  mat_bonus = material_stats[material] >> bonus        /// was: bonus
+  mat_desc  = material_stats[material] >> description  /// was: description
+
+  /// Build damage string
+  damage = base_damage
+  if mat_bonus > 0
+    damage = damage ++ "+" ++ mat_bonus
+  end
+  if mat_bonus < 0
+    damage = damage ++ mat_bonus  /// Already has negative sign
+  end
+
+  item_id = material ++ "_" ++ kind
+
+  weapon_item = {
+    id: item_id,
+    name: material ++ " " ++ kind,
+    type: "weapon",
+    slot: "weapon",
+    properties: {
+      damage: damage,
+      description: "A " ++ mat_desc ++ " " ++ kind ++ "."
+    }
+  }
+  return weapon_item
+end
+
+/// Generate consumables
+act generate_consumable
+  consumable_types = [
+    { name: "health potion", heal: "2d4+2", description: "A red vial that glows faintly." },
+    { name: "bread", heal: "1d4", description: "A crusty loaf, still warm." },
+    { name: "dried meat", heal: "1d6+1", description: "Salted and preserved." }
+  ]
+
+  selected = pick 1 from consumable_types   /// was: consumable
+
+  consumable_item = {
+    id: selected >> name,
+    name: selected >> name,
+    type: "consumable",
+    properties: {
+      heal: selected >> heal,
+      description: selected >> description
+    }
+  }
+  return consumable_item
+end
+
+/// Helper actions for each building type
+act blacksmith_items
+  items = []
+  num_weapons = pick 1 from 1...2
+  repeat num_weapons
+    weapon = generate_weapon()
+    put_last!(items, weapon)
+  end
+  return items
+end
+
+act inn_items
+  items = []
+  num_consumables = pick 1 from 1...2
+  repeat num_consumables
+    consumable = generate_consumable()
+    put_last!(items, consumable)
+  end
+  return items
+end
+
+act market_items
+  weapon = generate_weapon()
+  consumable = generate_consumable()
+  items = [weapon, consumable]
+  if roll 1d2 == 2
+    put_last!(items, generate_consumable())
+  end
+  return items
+end
+
+act shrine_items
+  items = []
+  num_heals = pick 1 from 1...2
+  repeat num_heals
+    consumable = generate_consumable()
+    put_last!(items, consumable)
+  end
+  return items
+end
+
+act default_items
+  if roll 1d2 == 1
+    return generate_weapon()
+  else
+    return generate_consumable()
+  end
+end
+
+/// Populate a building with random items
+act populate_building_items(building_type)
+  judge using building_type
+    == "blacksmith": blacksmith_items()
+    == "inn": inn_items()
+    == "market": market_items()
+    == "shrine": shrine_items()
+    else: default_items()
+  end
+end

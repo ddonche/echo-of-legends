@@ -1,0 +1,120 @@
+import {locations, items} from data
+
+act init_world
+  say "Generating your starting settlement..."
+  location = locations::generate_settlement()
+  
+  if location == nil
+    return nil
+  end
+  
+  /// Populate each building with items
+  i = 0
+  for building in location >> buildings
+    /// Use full path mutation with index
+    location >> buildings[i] >> items = items::populate_building_items(building >> type)
+    i = i + 1
+  end
+  
+  say "Welcome to " + location >> name + "!"
+  return location
+end
+
+act look(location)
+  building = get_current_building(location)
+  
+  say "=== " + building >> name + " ==="
+  say building >> description
+  
+  items_list = building >> items
+  item_count = items_list.count
+  
+  if item_count > 0
+    say ""
+    say "You see:"
+    for item in items_list
+      say "  - " + item >> name
+    end
+  else
+    say ""
+    say "There's nothing of interest here."
+  end
+end
+
+act get_current_building(location)
+  index = location >> current_building
+  building = location >> buildings[index]
+  return building
+end
+
+act list_buildings(location)
+  say "=== " + location >> name + " ==="
+  say "You can visit:"
+  
+  i = 0
+  for building in location >> buildings
+    marker = ""
+    if i == location >> current_building
+      marker = " (you are here)"
+    end
+    say "  " + i + ". " + building >> name + marker
+    i = i + 1
+  end
+end
+
+act go_to_building(location, building_index)
+  buildings_list = location >> buildings
+  max_index = buildings_list.count
+  
+  if building_index >= 0 and building_index < max_index
+    /// Update the current building index using update_at
+    update_at!(location, "current_building", building_index)
+    
+    /// Show the new location
+    say ""
+    look(location)
+  else
+    say "There's no building with that number."
+  end
+  
+  return location
+end
+
+act take_item(location, item_id)
+  index = location >> current_building
+  items_list = location >> buildings[index] >> items
+  
+  /// Find the item and its index
+  item = nil
+  item_index = -1
+  i = 0
+  for potential_item in items_list
+    if potential_item >> id == item_id
+      item = potential_item
+      item_index = i
+      break
+    end
+    i = i + 1
+  end
+  
+  if item == nil
+    say "There's no such item here."
+    return false
+  end
+  
+  say "You picked up: " + item >> name
+  
+  /// Use the new delete_at! with full path
+  delete_at!(location >> buildings[index] >> items, item_index)
+  
+  return item
+end
+
+act drop_item(location, item)
+  index = location >> current_building
+  
+  /// Use the new put_last! with full path
+  put_last!(location >> buildings[index] >> items, item)
+  
+  say "You dropped: " + item >> name
+end

@@ -1,0 +1,114 @@
+import game/hero as h
+import game/world as w
+
+act handle_command(location, input)
+  /// Convert to lowercase and trim
+  cmd = (input).lower.trim
+  
+  /// Split into words
+  parts = split(cmd, " ")
+  command = parts[0]
+  
+  /// Check for quit commands first
+  if command == "quit" or command == "exit" or command == "q"
+    say "Thanks for playing!"
+    return false, location  /// Return false to stop playing, and the current location
+  end
+  
+  /// Handle all other commands
+  judge using command
+    == "look": w::look(location)
+    == "l": w::look(location)
+    == "buildings": w::list_buildings(location)
+    == "b": w::list_buildings(location)
+    == "go": location = handle_go(location, parts)
+    == "g": location = handle_go(location, parts)
+    == "inventory": h::show_inventory()
+    == "i": h::show_inventory()
+    == "stats": h::show_hero()
+    == "equipment": h::show_equipment()
+    == "eq": h::show_equipment()
+    == "take": handle_take(location, parts)
+    == "t": handle_take(location, parts)
+    == "drop": handle_drop(location, parts)
+    == "d": handle_drop(location, parts)
+    == "equip": handle_equip(parts)
+    == "e": handle_equip(parts)
+    == "use": handle_use(parts)
+    == "u": handle_use(parts)
+    == "help": show_help()
+    == "h": show_help()
+    else: say "Unknown command. Type 'help' for available commands."
+  end
+  
+  return true, location  /// Continue playing
+end
+
+act handle_go(location, parts)
+  new_location = location
+  if parts.len > 1
+    building_num = int(parts[1])
+    new_location = w::go_to_building(location, building_num)
+  else
+    say "Go where? (Usage: go <number>)"
+  end
+  return new_location
+end
+
+act handle_take(location, parts)
+  if parts.len > 1
+    item_name = join(slice(parts, 1), " ")
+    item = w::take_item(location, item_name)
+    if item != nil
+      h::add_to_inventory(item)
+    end
+  else
+    say "Take what? (Usage: take <item>)"
+  end
+end
+
+act handle_drop(location, parts)
+  if parts.len > 1
+    item_name = join(slice(parts, 1), " ")
+    item = h::drop_item(item_name)
+    if item != nil
+      w::drop_item(location, item)
+    end
+  else
+    say "Drop what? (Usage: drop <item>)"
+  end
+end
+
+act handle_equip(parts)
+  if parts.len > 1
+    item_name = join(slice(parts, 1), " ")
+    h::equip_weapon(item_name)
+  else
+    say "Equip what? (Usage: equip <item>)"
+  end
+end
+
+act handle_use(parts)
+  if parts.len > 1
+    item_name = join(slice(parts, 1), " ")
+    h::use_item(item_name)
+  else
+    say "Use what? (Usage: use <item>)"
+  end
+end
+
+act show_help
+  say "=== Available Commands ==="
+  say "  look (l)           - Look around current building"
+  say "  buildings (b)      - List all buildings in settlement"
+  say "  go <number> (g)    - Go to a building by number"
+  say "  inventory (i)      - View your inventory"
+  say "  stats              - View your hero's stats"
+  say "  equipment (eq)     - View equipped items"
+  say "  take <item> (t)    - Pick up an item"
+  say "  drop <item> (d)    - Drop an item from inventory"
+  say "  equip <item> (e)   - Equip a weapon"
+  say "  use <item> (u)     - Use a consumable item"
+  say "  help (h)           - Show this help message"
+  say "  quit (q)           - Exit the game"
+end

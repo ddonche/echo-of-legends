@@ -1,0 +1,88 @@
+/// data/locations module
+settlement_types = ["village", "town", "hamlet", "outpost"]
+
+building_types = {
+  inn: {
+    names: ["The Prancing Pony", "The Rusty Mug", "Wayfarer's Rest", "The Sleeping Dragon"],
+    descriptions: [
+      "A cozy tavern with worn wooden tables and a crackling fireplace.",
+      "A bustling inn filled with the smell of roasted meat and ale.",
+      "A quiet establishment with creaky floors and faded tapestries."
+    ]
+  },
+  blacksmith: {
+    names: ["The Forge & Hammer", "Ironworks", "Steel & Stone", "The Anvil"],
+    descriptions: [
+      "A hot, smoky workshop filled with the ring of hammer on metal.",
+      "The scent of coal and iron hangs heavy in the air.",
+      "Weapons and tools line the walls, glowing embers light the forge."
+    ]
+  },
+  shrine: {
+    names: ["The Quiet Chapel", "Shrine of Light", "The Sacred Grove", "Temple of the Ancestors"],
+    descriptions: [
+      "Candles flicker in the dim interior, casting long shadows.",
+      "Incense smoke curls upward, the air feels peaceful.",
+      "Ancient symbols cover the walls, moss grows between the stones."
+    ]
+  },
+  market: {
+    names: ["The Bazaar", "Market Square", "The Trading Post", "Merchant's Corner"],
+    descriptions: [
+      "Colorful stalls overflow with goods, merchants call out their wares.",
+      "The square bustles with activity, coins change hands rapidly.",
+      "Tables groan under the weight of fruits, cloth, and trinkets."
+    ]
+  }
+}
+
+act generate_building(type)
+  template = building_types[type]
+  picked_name = pick from template >> names
+  picked_desc = pick from template >> descriptions
+  
+  new_building = {
+    type: type,
+    name: picked_name,
+    description: picked_desc,
+    items: []
+  }
+  
+  return new_building
+end
+
+act generate_settlement
+  settlement_type = pick from settlement_types
+  settlement_name = generate_settlement_name()
+  
+  /// Generate 3-4 buildings
+  num_buildings = pick 1 from 3...4  /// Gives 3 or 4
+  available_types = ["inn", "blacksmith", "shrine", "market"]
+  
+  buildings = []
+  repeat num_buildings
+    building_type = reap! from available_types
+    building = generate_building(building_type)
+    put_last!(buildings, building)
+  end
+  
+  settlement = {
+    type: "settlement",
+    name: settlement_name,
+    buildings: buildings,
+    current_building: 0
+  }
+  
+  return settlement
+end
+
+act generate_settlement_name
+prefixes = ["Ash", "Blue", "Brown", "Coal", "Grand", "Green", "Grey", "Heath", "High", "Iron", "Key", "Lark", "Low", "New", "Oak", "Old", "Red", "River", "Royal", "Shadow", "Star", "Stone"]
+suffixes = ["bridge", "dale", "ford", "glen", "haven", "hold", "horn", "len", "rim", "shir", "shire", "ton", "town", "wood"]
+  
+  prefix = pick from prefixes
+  suffix = pick from suffixes
+  
+  settlement_name = prefix + suffix
+  return settlement_name
+end
