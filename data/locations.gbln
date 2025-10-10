@@ -56,7 +56,7 @@ act generate_settlement
   settlement_name = generate_settlement_name()
   
   /// Generate 3-4 buildings
-  num_buildings = pick 1 from 3...4  /// Gives 3 or 4
+  num_buildings = pick 1 from 3...4  <---- Gives 3 or 4
   available_types = ["inn", "blacksmith", "shrine", "market"]
   
   buildings = []
@@ -77,8 +77,8 @@ act generate_settlement
 end
 
 act generate_settlement_name
-prefixes = ["Ash", "Blue", "Brown", "Coal", "Grand", "Green", "Grey", "Heath", "High", "Iron", "Key", "Lark", "Low", "New", "Oak", "Old", "Red", "River", "Royal", "Shadow", "Star", "Stone"]
-suffixes = ["bridge", "dale", "ford", "glen", "haven", "hold", "horn", "len", "rim", "shir", "shire", "ton", "town", "wood"]
+prefixes = ["River", "Stone", "Oak", "Iron", "Shadow", "Green"]
+suffixes = ["ford", "bridge", "haven", "dale", "shire", "hold"]
   
   prefix = pick from prefixes
   suffix = pick from suffixes

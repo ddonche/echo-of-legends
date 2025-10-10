@@ -18,6 +18,7 @@ w::look(location)
 say ""
 say "Type 'help' for available commands."
 say ""
+
 /// Game loop
 playing = true
 while playing == true

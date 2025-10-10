@@ -11,19 +11,24 @@ act init_world
   /// Populate each building with items
   i = 0
   for building in location >> buildings
-    /// Use full path mutation with index
-    location >> buildings[i] >> items = items::populate_building_items(building >> type)
+    /// Generate items and mutate the building
+    generated_items = items::populate_building_items(building >> type)
+    building_list = location >> buildings
+    current_building = building_list[i]
+    update_at!(current_building, "items", generated_items)
+    update_at!(building_list, i, current_building)
+    update_at!(location, "buildings", building_list)
     i = i + 1
   end
   
-  say "Welcome to " + location >> name + "!"
+  say "Welcome to" ++ location >> name + "!"
   return location
 end
 
 act look(location)
   building = get_current_building(location)
   
-  say "=== " + building >> name + " ==="
+  say "===" ++ building >> name ++ "==="
   say building >> description
   
   items_list = building >> items
@@ -33,7 +38,7 @@ act look(location)
     say ""
     say "You see:"
     for item in items_list
-      say "  - " + item >> name
+      say "  -" ++ item >> name
     end
   else
     say ""
@@ -48,7 +53,7 @@ act get_current_building(location)
 end
 
 act list_buildings(location)
-  say "=== " + location >> name + " ==="
+  say "===" ++ location >> name ++ "==="
   say "You can visit:"
   
   i = 0
@@ -57,7 +62,7 @@ act list_buildings(location)
     if i == location >> current_building
       marker = " (you are here)"
     end
-    say "  " + i + ". " + building >> name + marker
+    say "  " + i + "." ++ building >> name + marker
     i = i + 1
   end
 end
@@ -81,40 +86,62 @@ act go_to_building(location, building_index)
 end
 
 act take_item(location, item_id)
-  index = location >> current_building
-  items_list = location >> buildings[index] >> items
-  
-  /// Find the item and its index
-  item = nil
-  item_index = -1
-  i = 0
-  for potential_item in items_list
-    if potential_item >> id == item_id
-      item = potential_item
-      item_index = i
-      break
+    index = location >> current_building
+    items_list = location >> buildings[index] >> items
+    
+    /// Find the item and its index - match by name OR id
+    item = nil
+    item_index = -1
+    i = 0
+    for potential_item in items_list
+        if potential_item >> id == item_id or potential_item >> name == item_id
+            item = potential_item
+            item_index = i
+            stop
+        end
+        i = i + 1
     end
-    i = i + 1
-  end
-  
-  if item == nil
-    say "There's no such item here."
-    return false
-  end
-  
-  say "You picked up: " + item >> name
-  
-  /// Use the new delete_at! with full path
-  delete_at!(location >> buildings[index] >> items, item_index)
-  
-  return item
+    
+    if item == nil
+        say "There's no such item here."
+        return nil, location
+    end
+    
+    say "You picked up:" ++ item >> name
+    
+    /// Delete from items list and update the building
+    delete_at!(items_list, item_index)
+    
+    /// Get the building and update its items
+    building_list = location >> buildings
+    current_building = building_list[index]
+    update_at!(current_building, "items", items_list)
+    
+    /// Update the location with the modified building
+    update_at!(building_list, index, current_building)
+    update_at!(location, "buildings", building_list)
+    
+    say "DEBUG: About to return item and location"
+    return item, location
 end
 
 act drop_item(location, item)
-  index = location >> current_building
-  
-  /// Use the new put_last! with full path
-  put_last!(location >> buildings[index] >> items, item)
-  
-  say "You dropped: " + item >> name
+    index = location >> current_building
+    
+    /// Get items list and mutate it
+    building_list = location >> buildings
+    current_building = building_list[index]
+    items_list = current_building >> items
+    
+    /// Add item to the list
+    put_last!(items_list, item)
+    
+    /// Update building and location
+    update_at!(current_building, "items", items_list)
+    update_at!(building_list, index, current_building)
+    update_at!(location, "buildings", building_list)
+    
+    say "You dropped:" ++ item >> name
+    
+    return location
 end

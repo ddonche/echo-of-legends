@@ -2,7 +2,6 @@
 /// Modular weapon generation
 weapon_materials = ["rusty", "iron", "steel", "silver", "enchanted"]
 weapon_types = ["sword", "axe", "dagger", "mace", "spear"]
-
 material_stats = {
   rusty:     { bonus: -1, description: "badly weathered" },
   iron:      { bonus: 0,  description: "solid and reliable" },
@@ -10,7 +9,6 @@ material_stats = {
   silver:    { bonus: 2,  description: "gleaming and sharp" },
   enchanted: { bonus: 3,  description: "humming with power" }
 }
-
 weapon_base_damage = {
   sword:  "1d8",
   axe:    "1d10",
@@ -21,31 +19,27 @@ weapon_base_damage = {
 
 act generate_weapon
   material = pick 1 from weapon_materials
-  kind = pick 1 from weapon_types   /// was: type
-
+  kind = pick 1 from weapon_types   <---- was: type
   base_damage = weapon_base_damage[kind]
-  mat_bonus = material_stats[material] >> bonus        /// was: bonus
-  mat_desc  = material_stats[material] >> description  /// was: description
-
+  mat_bonus = material_stats[material] >> bonus        <---- was: bonus
+  mat_desc  = material_stats[material] >> description  <---- was: description
   /// Build damage string
   damage = base_damage
   if mat_bonus > 0
-    damage = damage ++ "+" ++ mat_bonus
+    damage = damage + "+" + mat_bonus
   end
   if mat_bonus < 0
-    damage = damage ++ mat_bonus  /// Already has negative sign
+    damage = damage + mat_bonus  <---- Already has negative sign
   end
-
-  item_id = material ++ "_" ++ kind
-
+  item_id = join([material, kind], "_")
   weapon_item = {
     id: item_id,
-    name: material ++ " " ++ kind,
+    name: material ++ kind,
     type: "weapon",
     slot: "weapon",
     properties: {
       damage: damage,
-      description: "A " ++ mat_desc ++ " " ++ kind ++ "."
+      description: "A" ++ mat_desc ++ kind + "."
     }
   }
   return weapon_item
@@ -58,9 +52,7 @@ act generate_consumable
     { name: "bread", heal: "1d4", description: "A crusty loaf, still warm." },
     { name: "dried meat", heal: "1d6+1", description: "Salted and preserved." }
   ]
-
-  selected = pick 1 from consumable_types   /// was: consumable
-
+  selected = pick 1 from consumable_types   <---- was: consumable
   consumable_item = {
     id: selected >> name,
     name: selected >> name,
@@ -75,43 +67,43 @@ end
 
 /// Helper actions for each building type
 act blacksmith_items
-  items = []
+  blacksmith_inv = []
   num_weapons = pick 1 from 1...2
   repeat num_weapons
     weapon = generate_weapon()
-    put_last!(items, weapon)
+    put_last!(blacksmith_inv, weapon) 
   end
-  return items
+  return blacksmith_inv
 end
 
 act inn_items
-  items = []
+  inn_inv = []
   num_consumables = pick 1 from 1...2
   repeat num_consumables
     consumable = generate_consumable()
-    put_last!(items, consumable)
+    put_last!(inn_inv, consumable) 
   end
-  return items
+  return inn_inv
 end
 
 act market_items
   weapon = generate_weapon()
   consumable = generate_consumable()
-  items = [weapon, consumable]
+  market_inv = [weapon, consumable]
   if roll 1d2 == 2
-    put_last!(items, generate_consumable())
+    put_last!(market_inv, generate_consumable())
   end
-  return items
+  return market_inv
 end
 
 act shrine_items
-  items = []
+  shrine_inv = []
   num_heals = pick 1 from 1...2
   repeat num_heals
     consumable = generate_consumable()
-    put_last!(items, consumable)
+    put_last!(shrine_inv, consumable) 
   end
-  return items
+  return shrine_inv
 end
 
 act default_items

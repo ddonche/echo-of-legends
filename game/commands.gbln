@@ -12,7 +12,7 @@ act handle_command(location, input)
   /// Check for quit commands first
   if command == "quit" or command == "exit" or command == "q"
     say "Thanks for playing!"
-    return false, location  /// Return false to stop playing, and the current location
+    return false, location  <---- Return false to stop playing, and the current location
   end
   
   /// Handle all other commands
@@ -28,10 +28,10 @@ act handle_command(location, input)
     == "stats": h::show_hero()
     == "equipment": h::show_equipment()
     == "eq": h::show_equipment()
-    == "take": handle_take(location, parts)
-    == "t": handle_take(location, parts)
-    == "drop": handle_drop(location, parts)
-    == "d": handle_drop(location, parts)
+    == "take": location = handle_take(location, parts)
+    == "t": location = handle_take(location, parts)
+    == "drop": location = handle_drop(location, parts)
+    == "d": location = handle_drop(location, parts)
     == "equip": handle_equip(parts)
     == "e": handle_equip(parts)
     == "use": handle_use(parts)
@@ -41,7 +41,7 @@ act handle_command(location, input)
     else: say "Unknown command. Type 'help' for available commands."
   end
   
-  return true, location  /// Continue playing
+  return true, location  <---- Continue playing
 end
 
 act handle_go(location, parts)
@@ -56,32 +56,34 @@ act handle_go(location, parts)
 end
 
 act handle_take(location, parts)
-  if parts.len > 1
-    item_name = join(slice(parts, 1), " ")
-    item = w::take_item(location, item_name)
-    if item != nil
-      h::add_to_inventory(item)
+    if parts.len > 1
+        item_name = join(parts[1:parts.len], " ")
+        item, location = w::take_item(location, item_name)
+        if item != nil
+            h::add_to_inventory(item)
+        end
+    else
+        say "Take what? (Usage: take <item>)"
     end
-  else
-    say "Take what? (Usage: take <item>)"
-  end
+    return location
 end
 
 act handle_drop(location, parts)
-  if parts.len > 1
-    item_name = join(slice(parts, 1), " ")
-    item = h::drop_item(item_name)
-    if item != nil
-      w::drop_item(location, item)
+    if parts.len > 1
+        item_name = join(parts[1:parts.len], " ")
+        item = h::drop_item(item_name)
+        if item != nil
+            location = w::drop_item(location, item)
+        end
+    else
+        say "Drop what? (Usage: drop <item>)"
     end
-  else
-    say "Drop what? (Usage: drop <item>)"
-  end
+    return location
 end
 
 act handle_equip(parts)
   if parts.len > 1
-    item_name = join(slice(parts, 1), " ")
+    item_name = join(parts[1:parts.len], " ")
     h::equip_weapon(item_name)
   else
     say "Equip what? (Usage: equip <item>)"
@@ -90,7 +92,7 @@ end
 
 act handle_use(parts)
   if parts.len > 1
-    item_name = join(slice(parts, 1), " ")
+    item_name = join(parts[1:parts.len], " ")
     h::use_item(item_name)
   else
     say "Use what? (Usage: use <item>)"
