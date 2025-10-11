@@ -121,7 +121,6 @@ act take_item(location, item_id)
     update_at!(building_list, index, current_building)
     update_at!(location, "buildings", building_list)
     
-    say "DEBUG: About to return item and location"
     return item, location
 end
 

@@ -140,10 +140,10 @@ act equip_weapon(item_id)
   /// Find item in inventory
   item = nil
   for i in hero >> inventory
-    if i >> id == item_id
-      item = i
-      stop
-    end
+      if i >> id == item_id or i >> name == item_id  
+          item = i
+          stop
+      end
   end
   
   if item == nil

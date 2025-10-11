@@ -38,8 +38,8 @@ act handle_command(location, input)
     == "e": handle_equip(parts)
     == "use": handle_use(parts)
     == "u": handle_use(parts)
-    == "fight": handle_fight()
-    == "f": handle_fight()
+    == "fight": location = handle_fight(location)
+    == "f": location = handle_fight(location)
     == "help": show_help()
     == "h": show_help()
     else: say "Unknown command. Type 'help' for available commands."
@@ -103,11 +103,12 @@ act handle_use(parts)
   end
 end
 
-act handle_fight
+act handle_fight(location)
     say "An enemy appears!"
     say ""
     enemy = monsters::random_enemy()
-    combat::start_combat(enemy)
+    result, location = combat::start_combat(enemy, location)
+    return location
 end
 
 act show_help

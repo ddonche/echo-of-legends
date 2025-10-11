@@ -15,23 +15,37 @@ act start_combat(enemy)
     say ""
     
     /// Combat loop
+    fled = false
     while enemy >> health > 0 and h::get_hero_health() > 0
         /// Player turn
-        say "--- Your Turn ---"
-        say "Health:" ++ h::get_hero_health()  
-        say ""
-        say "1. Attack"
-        say "2. Use Item"
-        say "3. Flee"
-        
-        choice = ask("> ")
-        say ""
-        
-        judge using choice
-            == "1": enemy = player_attack(enemy)
-            == "2": use_item_in_combat()
-            == "3": attempt_flee()
-            else: say "Invalid choice."
+        valid_action = false
+
+        while valid_action == false
+            say "--- Your Turn ---"
+            say "Health:" ++ h::get_hero_health()
+            say ""
+            say "1. Attack"
+            say "2. Use Item"
+            say "3. Flee"
+            
+            choice = ask("> ")
+            say ""
+            
+            judge using choice
+                == "1": enemy = player_attack(enemy)
+                == "2": use_item_in_combat()
+                == "3": fled = attempt_flee()
+                else: say "Invalid choice. Try again."
+            end
+            
+            /// Check if valid choice was made
+            if choice == "1" or choice == "2" or choice == "3"
+                valid_action = true
+            end
+        end
+
+        if fled
+            return true
         end
         
         /// Check if enemy is dead
@@ -135,7 +149,7 @@ act attempt_flee
     end
 end
 
-act handle_victory(enemy)
+act handle_victory(enemy, location)
     say "==================================="
     say "   VICTORY"
     say "==================================="
@@ -148,15 +162,17 @@ act handle_victory(enemy)
         say "The" ++ enemy >> name ++ "dropped:" ++ loot_item
         
         /// Generate the actual item
-        /// For now, create a basic consumable
         /// TODO: Make this smarter based on loot_item string
         dropped = items::generate_consumable()
-        h::add_to_inventory(dropped)
+        
+        /// Drop it in the current building
+        location = w::drop_item(location, dropped)
     else
         say "No loot found."
     end
     
     say ""
+    return location
 end
 
 act handle_defeat
