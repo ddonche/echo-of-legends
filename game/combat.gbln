@@ -1,0 +1,179 @@
+/// game/combat module
+import game/hero as h
+import data/monsters as m
+import data/items as items
+
+act start_combat(enemy)
+    say "==================================="
+    say "   COMBAT"
+    say "==================================="
+    say ""
+    say "A" ++ enemy >> name ++ "appears!"
+    say enemy >> description
+    say ""
+    say "Enemy Health:" ++ enemy >> health
+    say ""
+    
+    /// Combat loop
+    while enemy >> health > 0 and h::get_hero_health() > 0
+        /// Player turn
+        say "--- Your Turn ---"
+        say "Health:" ++ h::get_hero_health()  
+        say ""
+        say "1. Attack"
+        say "2. Use Item"
+        say "3. Flee"
+        
+        choice = ask("> ")
+        say ""
+        
+        judge using choice
+            == "1": enemy = player_attack(enemy)
+            == "2": use_item_in_combat()
+            == "3": attempt_flee()
+            else: say "Invalid choice."
+        end
+        
+        /// Check if enemy is dead
+        if enemy >> health <= 0
+            say enemy >> name ++ "is defeated!"
+            say ""
+            handle_victory(enemy)
+            return true
+        end
+        
+        /// Enemy turn
+        say ""
+        say "--- Enemy Turn ---"
+        enemy_attack(enemy)
+        say ""
+        
+        /// Check if player is dead
+        if h::get_hero_health() <= 0  
+            handle_defeat()
+            return false
+        end
+    end
+    
+    return true
+end
+
+act player_attack(enemy)
+    /// Get weapon damage
+    weapon = h::get_hero_weapon()  
+    base_damage = 0
+    
+    if weapon != nil
+        damage_roll = weapon >> properties >> damage
+        base_damage = roll_str(damage_roll)
+        say "You attack with your" ++ weapon >> name + "!"
+    else
+        base_damage = roll_str("1d2")
+        say "You attack with your fists!"
+    end
+    
+    /// Add strength bonus
+    str_bonus = (h::get_hero_strength() - 10) // 2  
+    total_damage = base_damage + str_bonus
+    
+    if total_damage < 1
+        total_damage = 1
+    end
+    
+    say "You deal" ++ total_damage ++ "damage!"
+    
+    /// Damage the enemy
+    new_health = enemy >> health - total_damage
+    update_at!(enemy, "health", new_health)
+    
+    say "Enemy Health:" ++ enemy >> health
+    
+    return enemy
+end
+
+act enemy_attack(enemy)
+    damage_roll = enemy >> damage
+    base_damage = roll_str(damage_roll)
+    
+    say enemy >> name ++ "attacks!"
+    say "It deals" ++ base_damage ++ "damage!"
+    
+    /// Damage the hero using the module function
+    h::damage_hero(base_damage)
+    
+    say "Your Health:" ++ h::get_hero_health()  
+end
+
+act use_item_in_combat
+    h::show_inventory()
+    say ""
+    say "Use which item? (or 'cancel')"
+    item_name = ask("> ")
+    say ""
+    
+    if item_name == "cancel"
+        return
+    end
+    
+    /// Try to use the item
+    result = h::use_item(item_name)
+    
+    if result == false
+        say "Turn wasted!"
+    end
+end
+
+act attempt_flee
+    /// 50% chance to escape
+    flee_roll = roll 1d2
+    if flee_roll == 2
+        say "You escaped!"
+        return true
+    else
+        say "You couldn't escape!"
+        return false
+    end
+end
+
+act handle_victory(enemy)
+    say "==================================="
+    say "   VICTORY"
+    say "==================================="
+    say ""
+    
+    /// Check for loot
+    loot_roll = roll 1d100
+    if loot_roll <= enemy >> loot_chance
+        loot_item = pick 1 from enemy >> loot_table
+        say "The" ++ enemy >> name ++ "dropped:" ++ loot_item
+        
+        /// Generate the actual item
+        /// For now, create a basic consumable
+        /// TODO: Make this smarter based on loot_item string
+        dropped = items::generate_consumable()
+        h::add_to_inventory(dropped)
+    else
+        say "No loot found."
+    end
+    
+    say ""
+end
+
+act handle_defeat
+    say "==================================="
+    say "   DEFEAT"
+    say "==================================="
+    say ""
+    
+    hero_data = h::get_hero()  
+    say hero_data >> name ++ "has fallen..."
+    say ""
+    say "But your soul endures."
+    say ""
+    say "Press Enter to bond with a new hero..."
+    ask("")
+    say ""
+    
+    /// Generate new hero
+    h::rebirth()
+end

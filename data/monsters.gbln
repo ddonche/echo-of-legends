@@ -1,0 +1,59 @@
+/// data/monsters module
+/// Enemy templates with stats and loot tables
+
+enemy_templates = {
+    giant_rat: {
+        name: "Giant Rat",
+        health: "2d6",
+        damage: "1d4",
+        description: "A mangy creature with yellow teeth and matted fur.",
+        loot_chance: 30,
+        loot_table: ["bread", "dried meat"]
+    },
+    bandit: {
+        name: "Bandit",
+        health: "3d6",
+        damage: "1d6+1",
+        description: "A rough-looking thug with a rusty blade.",
+        loot_chance: 60,
+        loot_table: ["rusty sword", "rusty dagger", "bread", "health potion"]
+    },
+    wolf: {
+        name: "Wolf",
+        health: "2d6+2",
+        damage: "1d6",
+        description: "A lean predator with sharp fangs and hungry eyes.",
+        loot_chance: 20,
+        loot_table: ["dried meat"]
+    },
+    troll: {
+        name: "Troll",
+        health: "4d6+4",
+        damage: "1d8+2",
+        description: "A massive brute covered in scars and moss.",
+        loot_chance: 80,
+        loot_table: ["iron axe", "steel sword", "health potion", "health potion"]
+    }
+}
+
+act generate_enemy(enemy_type)
+    template = enemy_templates[enemy_type]
+    
+    enemy = {
+        name: template >> name,
+        health: roll_str(template >> health),
+        max_health: roll_str(template >> health),
+        damage: template >> damage,
+        description: template >> description,
+        loot_chance: template >> loot_chance,
+        loot_table: template >> loot_table
+    }
+    
+    return enemy
+end
+
+act random_enemy
+    enemy_types = ["giant_rat", "bandit", "wolf", "troll"]
+    chosen_type = pick 1 from enemy_types
+    return generate_enemy(chosen_type)
+end

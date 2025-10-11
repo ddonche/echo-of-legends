@@ -1,5 +1,7 @@
 import game/hero as h
 import game/world as w
+import game/combat as combat
+import data/monsters as monsters
 
 act handle_command(location, input)
   /// Convert to lowercase and trim
@@ -36,6 +38,8 @@ act handle_command(location, input)
     == "e": handle_equip(parts)
     == "use": handle_use(parts)
     == "u": handle_use(parts)
+    == "fight": handle_fight()
+    == "f": handle_fight()
     == "help": show_help()
     == "h": show_help()
     else: say "Unknown command. Type 'help' for available commands."
@@ -99,6 +103,13 @@ act handle_use(parts)
   end
 end
 
+act handle_fight
+    say "An enemy appears!"
+    say ""
+    enemy = monsters::random_enemy()
+    combat::start_combat(enemy)
+end
+
 act show_help
   say "=== Available Commands ==="
   say "  look (l)           - Look around current building"
@@ -111,6 +122,7 @@ act show_help
   say "  drop <item> (d)    - Drop an item from inventory"
   say "  equip <item> (e)   - Equip a weapon"
   say "  use <item> (u)     - Use a consumable item"
+  say "  fight (f)          - Fight a random enemy"
   say "  help (h)           - Show this help message"
   say "  quit (q)           - Exit the game"
 end

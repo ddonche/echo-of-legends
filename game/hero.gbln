@@ -54,6 +54,27 @@ end
 /// Create the hero at startup
 hero = create_hero()
 
+/// helper actions
+act get_hero
+    return hero
+end
+
+act get_hero_health
+    return hero >> stats >> health
+end
+
+act get_hero_weapon
+    return hero >> equipped >> weapon
+end
+
+act get_hero_strength
+    return hero >> stats >> strength
+end
+
+act get_hero_inventory
+    return hero >> inventory
+end
+
 /// Display function
 act show_hero
   say "=== Your Hero ==="
@@ -221,4 +242,31 @@ act drop_item(item_id)
     say "You don't have that item."
     return nil
   end
+end
+
+/// Damage the hero (called from combat)
+act damage_hero(amount)
+    new_health = hero >> stats >> health - amount
+    stats_map = hero >> stats
+    update_at!(stats_map, "health", new_health)
+    update_at!(hero, "stats", stats_map)
+end
+
+act rebirth
+    say "==================================="
+    say "   A NEW BEGINNING"
+    say "==================================="
+    say ""
+    
+    /// Generate new hero
+    new_hero = create_hero()
+    
+    /// Replace the global hero
+    hero [= new_hero  <---- SHADOWED
+    
+    /// Show the new hero
+    show_hero()
+    say ""
+    say "A new hero rises..."
+    say ""
 end
