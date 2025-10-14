@@ -1,0 +1,87 @@
+{
+  "buildings": [
+    {
+      "description": "The scent of coal and iron hangs heavy in the air.",
+      "items": [
+        {
+          "id": "enchanted_spear",
+          "name": "enchanted spear",
+          "properties": {
+            "damage": "1d8+3",
+            "description": "A humming with power spear."
+          },
+          "slot": "weapon",
+          "type": "weapon"
+        },
+        {
+          "id": "steel_spear",
+          "name": "steel spear",
+          "properties": {
+            "damage": "1d8+1",
+            "description": "A well-crafted spear."
+          },
+          "slot": "weapon",
+          "type": "weapon"
+        }
+      ],
+      "name": "Steel & Stone",
+      "type": "blacksmith"
+    },
+    {
+      "description": "Ancient symbols cover the walls, moss grows between the stones.",
+      "items": [
+        {
+          "id": "dried meat",
+          "name": "dried meat",
+          "properties": {
+            "description": "Salted and preserved.",
+            "heal": "1d6+1"
+          },
+          "type": "consumable"
+        },
+        {
+          "id": "bread",
+          "name": "bread",
+          "properties": {
+            "description": "A crusty loaf, still warm.",
+            "heal": "1d4"
+          },
+          "type": "consumable"
+        }
+      ],
+      "name": "Temple of the Ancestors",
+      "type": "shrine"
+    },
+    {
+      "description": "A quiet establishment with creaky floors and faded tapestries.",
+      "items": [
+        {
+          "id": "dried meat",
+          "name": "dried meat",
+          "properties": {
+            "description": "Salted and preserved.",
+            "heal": "1d6+1"
+          },
+          "type": "consumable"
+        },
+        {
+          "id": "dried meat",
+          "name": "dried meat",
+          "properties": {
+            "description": "Salted and preserved.",
+            "heal": "1d6+1"
+          },
+          "type": "consumable"
+        }
+      ],
+      "name": "The Prancing Pony",
+      "type": "inn"
+    }
+  ],
+  "current_building": 0,
+  "discovered": true,
+  "name": "Oakford",
+  "type": "settlement",
+  "x": 3,
+  "y": -1
+}

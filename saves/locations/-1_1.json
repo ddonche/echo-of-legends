@@ -1,0 +1,112 @@
+{
+  "buildings": [
+    {
+      "description": "A quiet establishment with creaky floors and faded tapestries.",
+      "items": [
+        {
+          "id": "dried meat",
+          "name": "dried meat",
+          "properties": {
+            "description": "Salted and preserved.",
+            "heal": "1d6+1"
+          },
+          "type": "consumable"
+        },
+        {
+          "id": "bread",
+          "name": "bread",
+          "properties": {
+            "description": "A crusty loaf, still warm.",
+            "heal": "1d4"
+          },
+          "type": "consumable"
+        }
+      ],
+      "name": "The Sleeping Dragon",
+      "type": "inn"
+    },
+    {
+      "description": "Ancient symbols cover the walls, moss grows between the stones.",
+      "items": [
+        {
+          "id": "bread",
+          "name": "bread",
+          "properties": {
+            "description": "A crusty loaf, still warm.",
+            "heal": "1d4"
+          },
+          "type": "consumable"
+        },
+        {
+          "id": "bread",
+          "name": "bread",
+          "properties": {
+            "description": "A crusty loaf, still warm.",
+            "heal": "1d4"
+          },
+          "type": "consumable"
+        }
+      ],
+      "name": "Temple of the Ancestors",
+      "type": "shrine"
+    },
+    {
+      "description": "A hot, smoky workshop filled with the ring of hammer on metal.",
+      "items": [
+        {
+          "id": "enchanted_mace",
+          "name": "enchanted mace",
+          "properties": {
+            "damage": "1d6+3",
+            "description": "A humming with power mace."
+          },
+          "slot": "weapon",
+          "type": "weapon"
+        }
+      ],
+      "name": "The Forge & Hammer",
+      "type": "blacksmith"
+    },
+    {
+      "description": "The square bustles with activity, coins change hands rapidly.",
+      "items": [
+        {
+          "id": "rusty_mace",
+          "name": "rusty mace",
+          "properties": {
+            "damage": "1d6-1",
+            "description": "A badly weathered mace."
+          },
+          "slot": "weapon",
+          "type": "weapon"
+        },
+        {
+          "id": "bread",
+          "name": "bread",
+          "properties": {
+            "description": "A crusty loaf, still warm.",
+            "heal": "1d4"
+          },
+          "type": "consumable"
+        },
+        {
+          "id": "bread",
+          "name": "bread",
+          "properties": {
+            "description": "A crusty loaf, still warm.",
+            "heal": "1d4"
+          },
+          "type": "consumable"
+        }
+      ],
+      "name": "The Bazaar",
+      "type": "market"
+    }
+  ],
+  "current_building": 0,
+  "discovered": true,
+  "name": "Oakbridge",
+  "type": "settlement",
+  "x": -1,
+  "y": 1
+}

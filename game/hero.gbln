@@ -1,4 +1,5 @@
 import {names} from data
+import game/state as state
 
 act starter_gear(class) 
   judge using class
@@ -54,6 +55,17 @@ end
 /// Create the hero at startup
 hero = create_hero()
 
+/// Restore a hero from saved data
+act restore_hero(saved)
+  /// mutate the existing global hero map in place
+  update_at!(hero, "name",        saved >> name)
+  update_at!(hero, "class",       saved >> class)
+  update_at!(hero, "stats",       saved >> stats)
+  update_at!(hero, "inventory",   saved >> inventory)
+  update_at!(hero, "max_inventory", saved >> max_inventory)
+  update_at!(hero, "equipped",    saved >> equipped)
+end
+
 /// helper actions
 act get_hero
     return hero
@@ -83,7 +95,6 @@ act show_hero
   say "Strength:" ++ hero >> stats >> strength
   say "Magic:" ++ hero >> stats >> magic
   say "Agility:" ++ hero >> stats >> agility
-  /// say "Inventory:" ++ hero >> inventory
 end
 
 act show_inventory
@@ -131,7 +142,7 @@ act remove_from_inventory(item_id)
     return nil
   end
   
-  delete_at!(hero >> inventory, item_index) <---- using ! for mutation
+  delete_at!(hero >> inventory, item_index)
   return item
 end
 
@@ -252,19 +263,35 @@ act damage_hero(amount)
     update_at!(hero, "stats", stats_map)
 end
 
-act rebirth
+/// Rebirth - called when hero dies
+act rebirth(location, cause_of_death)
+    say "==================================="
+    say "   DEATH HAS CLAIMED YOU"
+    say "==================================="
+    say ""
+
+    /// Record the death permanently (pure action; it writes internally)
+    state::record_death(hero, location, cause_of_death)
+
+    say hero >> name ++ "has fallen..."
+    say "Your story has been recorded in the annals of history."
+    say ""
     say "==================================="
     say "   A NEW BEGINNING"
     say "==================================="
     say ""
-    
-    /// Generate new hero
+
+    /// Generate a fresh hero and mutate the existing global hero in place
     new_hero = create_hero()
-    
-    /// Replace the global hero
-    hero [= new_hero  <---- SHADOWED
-    
-    /// Show the new hero
+
+    update_at!(hero, "name",          new_hero >> name)
+    update_at!(hero, "class",         new_hero >> class)
+    update_at!(hero, "stats",         new_hero >> stats)
+    update_at!(hero, "inventory",     new_hero >> inventory)
+    update_at!(hero, "max_inventory", new_hero >> max_inventory)
+    update_at!(hero, "equipped",      new_hero >> equipped)
+
+    /// Reveal the new hero
     show_hero()
     say ""
     say "A new hero rises..."

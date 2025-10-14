@@ -1,0 +1,44 @@
+{
+  "class": "Warrior",
+  "equipped": {
+    "weapon": null
+  },
+  "inventory": [
+    {
+      "id": "sword",
+      "name": "sword",
+      "properties": {
+        "damage": "1d6",
+        "description": "A basic sword."
+      },
+      "slot": "weapon",
+      "type": "weapon"
+    },
+    {
+      "id": "shield",
+      "name": "shield",
+      "properties": {
+        "description": "A wooden shield."
+      },
+      "slot": "offhand",
+      "type": "armor"
+    },
+    {
+      "id": "dried meat",
+      "name": "dried meat",
+      "properties": {
+        "description": "Salted and preserved.",
+        "heal": "1d6+1"
+      },
+      "type": "consumable"
+    }
+  ],
+  "max_inventory": 10,
+  "name": "Nyx Stormborn",
+  "stats": {
+    "agility": 15,
+    "health": 17,
+    "magic": 8,
+    "strength": 13
+  }
+}

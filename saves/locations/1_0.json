@@ -1,0 +1,59 @@
+{
+  "buildings": [
+    {
+      "description": "Incense smoke curls upward, the air feels peaceful.",
+      "items": [],
+      "name": "Shrine of Light",
+      "type": "shrine"
+    },
+    {
+      "description": "Colorful stalls overflow with goods, merchants call out their wares.",
+      "items": [
+        {
+          "id": "rusty_spear",
+          "name": "rusty spear",
+          "properties": {
+            "damage": "1d8-1",
+            "description": "A badly weathered spear."
+          },
+          "slot": "weapon",
+          "type": "weapon"
+        },
+        {
+          "id": "dried meat",
+          "name": "dried meat",
+          "properties": {
+            "description": "Salted and preserved.",
+            "heal": "1d6+1"
+          },
+          "type": "consumable"
+        }
+      ],
+      "name": "The Trading Post",
+      "type": "market"
+    },
+    {
+      "description": "Weapons and tools line the walls, glowing embers light the forge.",
+      "items": [
+        {
+          "id": "silver_spear",
+          "name": "silver spear",
+          "properties": {
+            "damage": "1d8+2",
+            "description": "A gleaming and sharp spear."
+          },
+          "slot": "weapon",
+          "type": "weapon"
+        }
+      ],
+      "name": "Steel & Stone",
+      "type": "blacksmith"
+    }
+  ],
+  "current_building": 0,
+  "discovered": true,
+  "name": "Irondale",
+  "type": "settlement",
+  "x": 1,
+  "y": 0
+}

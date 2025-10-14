@@ -1,0 +1,94 @@
+{
+  "buildings": [
+    {
+      "description": "A hot, smoky workshop filled with the ring of hammer on metal.",
+      "items": [
+        {
+          "id": "silver_sword",
+          "name": "silver sword",
+          "properties": {
+            "damage": "1d8+2",
+            "description": "A gleaming and sharp sword."
+          },
+          "slot": "weapon",
+          "type": "weapon"
+        }
+      ],
+      "name": "The Forge & Hammer",
+      "type": "blacksmith"
+    },
+    {
+      "description": "A bustling inn filled with the smell of roasted meat and ale.",
+      "items": [
+        {
+          "id": "health potion",
+          "name": "health potion",
+          "properties": {
+            "description": "A red vial that glows faintly.",
+            "heal": "2d4+2"
+          },
+          "type": "consumable"
+        },
+        {
+          "id": "bread",
+          "name": "bread",
+          "properties": {
+            "description": "A crusty loaf, still warm.",
+            "heal": "1d4"
+          },
+          "type": "consumable"
+        }
+      ],
+      "name": "The Prancing Pony",
+      "type": "inn"
+    },
+    {
+      "description": "Candles flicker in the dim interior, casting long shadows.",
+      "items": [
+        {
+          "id": "dried meat",
+          "name": "dried meat",
+          "properties": {
+            "description": "Salted and preserved.",
+            "heal": "1d6+1"
+          },
+          "type": "consumable"
+        }
+      ],
+      "name": "The Quiet Chapel",
+      "type": "shrine"
+    },
+    {
+      "description": "Colorful stalls overflow with goods, merchants call out their wares.",
+      "items": [
+        {
+          "id": "enchanted_mace",
+          "name": "enchanted mace",
+          "properties": {
+            "damage": "1d6+3",
+            "description": "A humming with power mace."
+          },
+          "slot": "weapon",
+          "type": "weapon"
+        },
+        {
+          "id": "health potion",
+          "name": "health potion",
+          "properties": {
+            "description": "A red vial that glows faintly.",
+            "heal": "2d4+2"
+          },
+          "type": "consumable"
+        }
+      ],
+      "name": "Market Square",
+      "type": "market"
+    }
+  ],
+  "current_building": 0,
+  "discovered": true,
+  "name": "Stonebridge",
+  "type": "settlement",
+  "x": 2,
+  "y": 0
+}

@@ -1,0 +1,101 @@
+/// game/state.gbln - Save/Load operations for persistent world
+
+/// Save a location to disk
+act save_location(location)
+  x [= location >> x
+  y [= location >> y
+  x_str = str(x)
+  y_str = str(y)
+  filename = "saves/locations/" + x_str + "_" + y_str + ".json"
+  write_json!(filename, location, true)
+end
+
+/// Load a location from disk, returns nil if not found
+act load_location(x, y)
+  filename = join(["saves/locations/", str(x), "_", str(y), ".json"], "")
+  attempt
+    read_json(filename)
+  rescue err
+    nil
+  end
+end
+
+/// Save current hero to disk
+act save_hero(hero)
+  write_json!("saves/current_hero.json", hero, true)
+end
+
+/// Load hero, returns nil if not found
+act load_hero()
+  attempt
+    read_json("saves/current_hero.json")
+  rescue err
+    nil
+  end
+end
+
+/// Save game state (coordinates)
+act save_game_state(game_state)
+  write_json!("saves/game_state.json", game_state, true)
+end
+
+/// Load game state, returns nil if not found
+act load_game_state()
+  attempt
+    read_json("saves/game_state.json")
+  rescue err
+    nil
+  end
+end
+
+/// Save everything at once
+act save_game(location, game_state, hero)
+  save_location(location)
+  save_game_state(game_state)
+  save_hero(hero)
+end
+
+/// Load everything - returns [location, game_state, hero] or nil
+act load_game()
+  game_state = load_game_state()
+  hero [= load_hero()
+  
+  if game_state == nil or hero == nil 
+    nil
+  else
+    location = load_location(game_state >> current_x, game_state >> current_y)
+    if location == nil 
+      nil
+    else
+      [location, game_state, hero]
+    end
+  end
+end
+
+/// Record a hero's death permanently
+act record_death(hero, location, cause)
+  death_record = {
+    hero_name: hero >> name,
+    class: hero >> class,
+    death_x: location >> x,
+    death_y: location >> y,
+    cause_of_death: cause
+  }
+
+  past_lives = []
+  if file_exists("saves/past_lives.json")
+    past_lives = read_json("saves/past_lives.json")
+  end
+
+  put_last!(past_lives, death_record)
+  write_json!("saves/past_lives.json", past_lives, true)
+end
+
+/// Load all past death records
+act load_past_lives()
+  attempt
+    read_json("saves/past_lives.json")
+  rescue err
+    []
+  end
+end

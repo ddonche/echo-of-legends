@@ -1,0 +1,94 @@
+{
+  "buildings": [
+    {
+      "description": "Ancient symbols cover the walls, moss grows between the stones.",
+      "items": [],
+      "name": "The Quiet Chapel",
+      "type": "shrine"
+    },
+    {
+      "description": "A cozy tavern with worn wooden tables and a crackling fireplace.",
+      "items": [
+        {
+          "id": "health potion",
+          "name": "health potion",
+          "properties": {
+            "description": "A red vial that glows faintly.",
+            "heal": "2d4+2"
+          },
+          "type": "consumable"
+        }
+      ],
+      "name": "The Sleeping Dragon",
+      "type": "inn"
+    },
+    {
+      "description": "The scent of coal and iron hangs heavy in the air.",
+      "items": [
+        {
+          "id": "enchanted_sword",
+          "name": "enchanted sword",
+          "properties": {
+            "damage": "1d8+3",
+            "description": "A humming with power sword."
+          },
+          "slot": "weapon",
+          "type": "weapon"
+        },
+        {
+          "id": "enchanted_sword",
+          "name": "enchanted sword",
+          "properties": {
+            "damage": "1d8+3",
+            "description": "A humming with power sword."
+          },
+          "slot": "weapon",
+          "type": "weapon"
+        }
+      ],
+      "name": "The Anvil",
+      "type": "blacksmith"
+    },
+    {
+      "description": "Tables groan under the weight of fruits, cloth, and trinkets.",
+      "items": [
+        {
+          "id": "rusty_mace",
+          "name": "rusty mace",
+          "properties": {
+            "damage": "1d6-1",
+            "description": "A badly weathered mace."
+          },
+          "slot": "weapon",
+          "type": "weapon"
+        },
+        {
+          "id": "health potion",
+          "name": "health potion",
+          "properties": {
+            "description": "A red vial that glows faintly.",
+            "heal": "2d4+2"
+          },
+          "type": "consumable"
+        },
+        {
+          "id": "bread",
+          "name": "bread",
+          "properties": {
+            "description": "A crusty loaf, still warm.",
+            "heal": "1d4"
+          },
+          "type": "consumable"
+        }
+      ],
+      "name": "The Trading Post",
+      "type": "market"
+    }
+  ],
+  "current_building": 0,
+  "discovered": true,
+  "name": "Oakhold",
+  "type": "settlement",
+  "x": 0,
+  "y": 0
+}

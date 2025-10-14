@@ -1,9 +1,10 @@
 import game/hero as h
 import game/world as w
 import game/combat as combat
+import game/state as state
 import data/monsters as monsters
 
-act handle_command(location, input)
+act handle_command(location, game_state, input)
   /// Convert to lowercase and trim
   cmd = (input).lower.trim
   
@@ -11,10 +12,12 @@ act handle_command(location, input)
   parts = split(cmd, " ")
   command = parts[0]
   
-  /// Check for quit commands first
+  /// Check for quit commands first - save before exiting
   if command == "quit" or command == "exit" or command == "q"
+    say "Saving game..."
+    state::save_game(location, game_state, h::get_hero())
     say "Thanks for playing!"
-    return false, location  <---- Return false to stop playing, and the current location
+    return false, location, game_state  /// Return false to stop playing
   end
   
   /// Handle all other commands
@@ -35,17 +38,96 @@ act handle_command(location, input)
     == "drop": location = handle_drop(location, parts)
     == "d": location = handle_drop(location, parts)
     == "equip": handle_equip(parts)
-    == "e": handle_equip(parts)
     == "use": handle_use(parts)
     == "u": handle_use(parts)
     == "fight": location = handle_fight(location)
     == "f": location = handle_fight(location)
+    == "north": location, game_state = handle_move(location, game_state, "north")
+    == "n": location, game_state = handle_move(location, game_state, "north")
+    == "south": location, game_state = handle_move(location, game_state, "south")
+    == "s": location, game_state = handle_move(location, game_state, "south")
+    == "east": location, game_state = handle_move(location, game_state, "east")
+    == "e": location, game_state = handle_move(location, game_state, "east")
+    == "west": location, game_state = handle_move(location, game_state, "west")
+    == "w": location, game_state = handle_move(location, game_state, "west")
+    == "where": show_location(location)
+    == "past": show_past_lives()
     == "help": show_help()
     == "h": show_help()
     else: say "Unknown command. Type 'help' for available commands."
   end
   
-  return true, location  <---- Continue playing
+  return true, location, game_state  /// Continue playing
+end
+
+act handle_move(location, game_state, direction)
+  state::save_location(location)
+
+  new_x = game_state >> current_x
+  new_y = game_state >> current_y
+
+  judge using direction
+    == "north": new_y = new_y + 1
+    == "south": new_y = new_y - 1
+    == "east":  new_x = new_x + 1
+    == "west":  new_x = new_x - 1
+  end
+
+  say ""
+  say "Traveling" ++ direction + "..."
+  say ""
+
+  new_location = w::get_or_create_location(new_x, new_y)
+
+  update_at!(game_state, "current_x", new_x)
+  update_at!(game_state, "current_y", new_y)
+
+  show_location(new_location)
+  say ""
+  w::look(new_location)
+
+  /// normalize names so labeled return matches LHS
+  location = new_location
+  return location, game_state
+end
+
+act show_location(location)
+  x = location >> x
+  y = location >> y
+  say "=== Current Location ==="
+  say location >> name ++ "(coordinates:" ++ str(x) + "," ++ str(y) + ")"
+end
+
+act show_past_lives
+  /// Load all recorded deaths
+  past_lives = state::load_past_lives()
+
+  if past_lives.count == 0
+    say "No fallen heroes yet. You're doing well!"
+    return
+  end
+
+  say "=== Fallen Heroes ==="
+  say ""
+
+  for death in past_lives
+    hero_name = death >> hero_name
+    hero_class = death >> class
+    x = death >> death_x
+    y = death >> death_y
+    cause = death >> cause_of_death
+
+    loc = state::load_location(x, y)
+    loc_name = "Unknown place"
+    if loc != nil
+      loc_name = loc >> name
+    end
+
+    say hero_name ++ " the " ++ hero_class
+    say "  Fell at " ++ loc_name ++ " (" + str(x) + ", " + str(y) + ")"
+    say "  " + cause
+    say ""
+  end
 end
 
 act handle_go(location, parts)
@@ -116,14 +198,20 @@ act show_help
   say "  look (l)           - Look around current building"
   say "  buildings (b)      - List all buildings in settlement"
   say "  go <number> (g)    - Go to a building by number"
+  say "  north (n)          - Travel north"
+  say "  south (s)          - Travel south"
+  say "  east (e)           - Travel east"
+  say "  west (w)           - Travel west"
+  say "  where              - Show current coordinates"
   say "  inventory (i)      - View your inventory"
   say "  stats              - View your hero's stats"
   say "  equipment (eq)     - View equipped items"
   say "  take <item> (t)    - Pick up an item"
   say "  drop <item> (d)    - Drop an item from inventory"
-  say "  equip <item> (e)   - Equip a weapon"
+  say "  equip <item>       - Equip a weapon"
   say "  use <item> (u)     - Use a consumable item"
   say "  fight (f)          - Fight a random enemy"
+  say "  past               - View fallen heroes"
   say "  help (h)           - Show this help message"
-  say "  quit (q)           - Exit the game"
+  say "  quit (q)           - Save and exit the game"
 end

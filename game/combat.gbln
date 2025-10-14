@@ -1,9 +1,11 @@
 /// game/combat module
 import game/hero as h
+import game/world as w
 import data/monsters as m
 import data/items as items
 
-act start_combat(enemy)
+/// Add location parameter to start_combat
+act start_combat(enemy, location)
     say "==================================="
     say "   COMBAT"
     say "==================================="
@@ -19,7 +21,7 @@ act start_combat(enemy)
     while enemy >> health > 0 and h::get_hero_health() > 0
         /// Player turn
         valid_action = false
-
+        
         while valid_action == false
             say "--- Your Turn ---"
             say "Health:" ++ h::get_hero_health()
@@ -38,22 +40,21 @@ act start_combat(enemy)
                 else: say "Invalid choice. Try again."
             end
             
-            /// Check if valid choice was made
             if choice == "1" or choice == "2" or choice == "3"
                 valid_action = true
             end
         end
-
+        
         if fled
-            return true
+            return true, location
         end
         
         /// Check if enemy is dead
         if enemy >> health <= 0
             say enemy >> name ++ "is defeated!"
             say ""
-            handle_victory(enemy)
-            return true
+            location = handle_victory(enemy, location)
+            return true, location
         end
         
         /// Enemy turn
@@ -63,13 +64,13 @@ act start_combat(enemy)
         say ""
         
         /// Check if player is dead
-        if h::get_hero_health() <= 0  
-            handle_defeat()
-            return false
+        if h::get_hero_health() <= 0
+            handle_defeat(enemy, location)
+            return false, location
         end
     end
     
-    return true
+    return true, location
 end
 
 act player_attack(enemy)
@@ -175,7 +176,7 @@ act handle_victory(enemy, location)
     return location
 end
 
-act handle_defeat
+act handle_defeat(enemy, location)
     say "==================================="
     say "   DEFEAT"
     say "==================================="
@@ -190,6 +191,9 @@ act handle_defeat
     ask("")
     say ""
     
-    /// Generate new hero
-    h::rebirth()
+    /// Build cause of death string
+    cause = "Defeated by" ++ enemy >> name
+    
+    /// Generate new hero and record death
+    h::rebirth(location, cause)
 end

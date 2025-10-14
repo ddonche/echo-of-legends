@@ -1,20 +1,51 @@
 import game/hero as h
 import game/world as w
 import game/commands as cmd
+import game/state as state
 
 say "==================================="
 say "   ECHO OF LEGENDS"
 say "==================================="
 say ""
 
-/// Create hero
-h::show_hero()
-say ""
+/// Try to load existing game
+loaded = state::load_game()
 
-/// Initialize world
-location = w::init_world()
-say ""
-w::look(location)
+location = nil
+game_state = nil
+
+if loaded != nil
+  say "Continuing saved game..."
+  say ""
+  
+  /// Unpack loaded data
+  location = loaded[0]
+  game_state = loaded[1]
+  saved_hero = loaded[2]
+  
+  /// Restore the hero
+  h::restore_hero(saved_hero)
+  
+  /// Show current state
+  h::show_hero()
+  say ""
+  cmd::show_location(location)
+  say ""
+  w::look(location)
+else
+  say "Starting new game..."
+  say ""
+  
+  /// Create hero
+  h::show_hero()
+  say ""
+  
+  /// Initialize world (returns location and game_state)
+  location, game_state = w::init_world()
+  say ""
+  w::look(location)
+end
+
 say ""
 say "Type 'help' for available commands."
 say ""
@@ -24,6 +55,6 @@ playing = true
 while playing == true
   input = ask("> ")
   say ""
-  playing, location = cmd::handle_command(location, input)
+  playing, location, game_state = cmd::handle_command(location, game_state, input)
   say ""
 end

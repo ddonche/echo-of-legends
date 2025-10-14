@@ -1,0 +1,86 @@
+{
+  "buildings": [
+    {
+      "description": "Ancient symbols cover the walls, moss grows between the stones.",
+      "items": [
+        {
+          "id": "bread",
+          "name": "bread",
+          "properties": {
+            "description": "A crusty loaf, still warm.",
+            "heal": "1d4"
+          },
+          "type": "consumable"
+        }
+      ],
+      "name": "Shrine of Light",
+      "type": "shrine"
+    },
+    {
+      "description": "Colorful stalls overflow with goods, merchants call out their wares.",
+      "items": [
+        {
+          "id": "silver_dagger",
+          "name": "silver dagger",
+          "properties": {
+            "damage": "1d4+2",
+            "description": "A gleaming and sharp dagger."
+          },
+          "slot": "weapon",
+          "type": "weapon"
+        },
+        {
+          "id": "health potion",
+          "name": "health potion",
+          "properties": {
+            "description": "A red vial that glows faintly.",
+            "heal": "2d4+2"
+          },
+          "type": "consumable"
+        },
+        {
+          "id": "dried meat",
+          "name": "dried meat",
+          "properties": {
+            "description": "Salted and preserved.",
+            "heal": "1d6+1"
+          },
+          "type": "consumable"
+        }
+      ],
+      "name": "The Bazaar",
+      "type": "market"
+    },
+    {
+      "description": "A bustling inn filled with the smell of roasted meat and ale.",
+      "items": [
+        {
+          "id": "health potion",
+          "name": "health potion",
+          "properties": {
+            "description": "A red vial that glows faintly.",
+            "heal": "2d4+2"
+          },
+          "type": "consumable"
+        },
+        {
+          "id": "health potion",
+          "name": "health potion",
+          "properties": {
+            "description": "A red vial that glows faintly.",
+            "heal": "2d4+2"
+          },
+          "type": "consumable"
+        }
+      ],
+      "name": "The Prancing Pony",
+      "type": "inn"
+    }
+  ],
+  "current_building": 0,
+  "discovered": true,
+  "name": "Riverhaven",
+  "type": "settlement",
+  "x": 3,
+  "y": 0
+}

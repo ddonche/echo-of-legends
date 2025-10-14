@@ -1,0 +1,88 @@
+{
+  "buildings": [
+    {
+      "description": "A bustling inn filled with the smell of roasted meat and ale.",
+      "items": [
+        {
+          "id": "dried meat",
+          "name": "dried meat",
+          "properties": {
+            "description": "Salted and preserved.",
+            "heal": "1d6+1"
+          },
+          "type": "consumable"
+        }
+      ],
+      "name": "The Sleeping Dragon",
+      "type": "inn"
+    },
+    {
+      "description": "Tables groan under the weight of fruits, cloth, and trinkets.",
+      "items": [
+        {
+          "id": "iron_dagger",
+          "name": "iron dagger",
+          "properties": {
+            "damage": "1d4",
+            "description": "A solid and reliable dagger."
+          },
+          "slot": "weapon",
+          "type": "weapon"
+        },
+        {
+          "id": "dried meat",
+          "name": "dried meat",
+          "properties": {
+            "description": "Salted and preserved.",
+            "heal": "1d6+1"
+          },
+          "type": "consumable"
+        },
+        {
+          "id": "dried meat",
+          "name": "dried meat",
+          "properties": {
+            "description": "Salted and preserved.",
+            "heal": "1d6+1"
+          },
+          "type": "consumable"
+        }
+      ],
+      "name": "The Bazaar",
+      "type": "market"
+    },
+    {
+      "description": "The scent of coal and iron hangs heavy in the air.",
+      "items": [
+        {
+          "id": "steel_dagger",
+          "name": "steel dagger",
+          "properties": {
+            "damage": "1d4+1",
+            "description": "A well-crafted dagger."
+          },
+          "slot": "weapon",
+          "type": "weapon"
+        },
+        {
+          "id": "rusty_mace",
+          "name": "rusty mace",
+          "properties": {
+            "damage": "1d6-1",
+            "description": "A badly weathered mace."
+          },
+          "slot": "weapon",
+          "type": "weapon"
+        }
+      ],
+      "name": "Steel & Stone",
+      "type": "blacksmith"
+    }
+  ],
+  "current_building": 0,
+  "discovered": true,
+  "name": "Stonebridge",
+  "type": "settlement",
+  "x": -2,
+  "y": 1
+}

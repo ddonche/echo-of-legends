@@ -1,0 +1,94 @@
+{
+  "buildings": [
+    {
+      "description": "A quiet establishment with creaky floors and faded tapestries.",
+      "items": [
+        {
+          "id": "health potion",
+          "name": "health potion",
+          "properties": {
+            "description": "A red vial that glows faintly.",
+            "heal": "2d4+2"
+          },
+          "type": "consumable"
+        }
+      ],
+      "name": "The Prancing Pony",
+      "type": "inn"
+    },
+    {
+      "description": "Colorful stalls overflow with goods, merchants call out their wares.",
+      "items": [
+        {
+          "id": "iron_mace",
+          "name": "iron mace",
+          "properties": {
+            "damage": "1d6",
+            "description": "A solid and reliable mace."
+          },
+          "slot": "weapon",
+          "type": "weapon"
+        },
+        {
+          "id": "dried meat",
+          "name": "dried meat",
+          "properties": {
+            "description": "Salted and preserved.",
+            "heal": "1d6+1"
+          },
+          "type": "consumable"
+        }
+      ],
+      "name": "Merchant's Corner",
+      "type": "market"
+    },
+    {
+      "description": "Candles flicker in the dim interior, casting long shadows.",
+      "items": [
+        {
+          "id": "dried meat",
+          "name": "dried meat",
+          "properties": {
+            "description": "Salted and preserved.",
+            "heal": "1d6+1"
+          },
+          "type": "consumable"
+        },
+        {
+          "id": "dried meat",
+          "name": "dried meat",
+          "properties": {
+            "description": "Salted and preserved.",
+            "heal": "1d6+1"
+          },
+          "type": "consumable"
+        }
+      ],
+      "name": "Temple of the Ancestors",
+      "type": "shrine"
+    },
+    {
+      "description": "A hot, smoky workshop filled with the ring of hammer on metal.",
+      "items": [
+        {
+          "id": "enchanted_dagger",
+          "name": "enchanted dagger",
+          "properties": {
+            "damage": "1d4+3",
+            "description": "A humming with power dagger."
+          },
+          "slot": "weapon",
+          "type": "weapon"
+        }
+      ],
+      "name": "The Anvil",
+      "type": "blacksmith"
+    }
+  ],
+  "current_building": 0,
+  "discovered": true,
+  "name": "Greenbridge",
+  "type": "settlement",
+  "x": -1,
+  "y": 0
+}

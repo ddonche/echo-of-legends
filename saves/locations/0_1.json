@@ -1,0 +1,113 @@
+{
+  "buildings": [
+    {
+      "description": "Colorful stalls overflow with goods, merchants call out their wares.",
+      "items": [
+        {
+          "id": "enchanted_mace",
+          "name": "enchanted mace",
+          "properties": {
+            "damage": "1d6+3",
+            "description": "A humming with power mace."
+          },
+          "slot": "weapon",
+          "type": "weapon"
+        },
+        {
+          "id": "dried meat",
+          "name": "dried meat",
+          "properties": {
+            "description": "Salted and preserved.",
+            "heal": "1d6+1"
+          },
+          "type": "consumable"
+        },
+        {
+          "id": "dried meat",
+          "name": "dried meat",
+          "properties": {
+            "description": "Salted and preserved.",
+            "heal": "1d6+1"
+          },
+          "type": "consumable"
+        }
+      ],
+      "name": "Market Square",
+      "type": "market"
+    },
+    {
+      "description": "Weapons and tools line the walls, glowing embers light the forge.",
+      "items": [
+        {
+          "id": "enchanted_spear",
+          "name": "enchanted spear",
+          "properties": {
+            "damage": "1d8+3",
+            "description": "A humming with power spear."
+          },
+          "slot": "weapon",
+          "type": "weapon"
+        },
+        {
+          "id": "silver_spear",
+          "name": "silver spear",
+          "properties": {
+            "damage": "1d8+2",
+            "description": "A gleaming and sharp spear."
+          },
+          "slot": "weapon",
+          "type": "weapon"
+        }
+      ],
+      "name": "The Anvil",
+      "type": "blacksmith"
+    },
+    {
+      "description": "Incense smoke curls upward, the air feels peaceful.",
+      "items": [
+        {
+          "id": "dried meat",
+          "name": "dried meat",
+          "properties": {
+            "description": "Salted and preserved.",
+            "heal": "1d6+1"
+          },
+          "type": "consumable"
+        }
+      ],
+      "name": "The Quiet Chapel",
+      "type": "shrine"
+    },
+    {
+      "description": "A cozy tavern with worn wooden tables and a crackling fireplace.",
+      "items": [
+        {
+          "id": "health potion",
+          "name": "health potion",
+          "properties": {
+            "description": "A red vial that glows faintly.",
+            "heal": "2d4+2"
+          },
+          "type": "consumable"
+        },
+        {
+          "id": "dried meat",
+          "name": "dried meat",
+          "properties": {
+            "description": "Salted and preserved.",
+            "heal": "1d6+1"
+          },
+          "type": "consumable"
+        }
+      ],
+      "name": "Wayfarer's Rest",
+      "type": "inn"
+    }
+  ],
+  "current_building": 0,
+  "discovered": true,
+  "name": "Stonehold",
+  "type": "settlement",
+  "x": 0,
+  "y": 1
+}

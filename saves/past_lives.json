@@ -1,0 +1,16 @@
+[
+  {
+    "cause_of_death": "Defeated by Troll",
+    "class": "Warrior",
+    "death_x": 0,
+    "death_y": 0,
+    "hero_name": "Mira Thorne"
+  },
+  {
+    "cause_of_death": "Defeated by Giant Rat",
+    "class": "Rogue",
+    "death_x": 0,
+    "death_y": 0,
+    "hero_name": "Lysa Thorne"
+  }
+]

@@ -1,0 +1,78 @@
+{
+  "buildings": [
+    {
+      "description": "Ancient symbols cover the walls, moss grows between the stones.",
+      "items": [
+        {
+          "id": "dried meat",
+          "name": "dried meat",
+          "properties": {
+            "description": "Salted and preserved.",
+            "heal": "1d6+1"
+          },
+          "type": "consumable"
+        }
+      ],
+      "name": "Temple of the Ancestors",
+      "type": "shrine"
+    },
+    {
+      "description": "The scent of coal and iron hangs heavy in the air.",
+      "items": [
+        {
+          "id": "steel_mace",
+          "name": "steel mace",
+          "properties": {
+            "damage": "1d6+1",
+            "description": "A well-crafted mace."
+          },
+          "slot": "weapon",
+          "type": "weapon"
+        }
+      ],
+      "name": "The Forge & Hammer",
+      "type": "blacksmith"
+    },
+    {
+      "description": "Tables groan under the weight of fruits, cloth, and trinkets.",
+      "items": [
+        {
+          "id": "steel_sword",
+          "name": "steel sword",
+          "properties": {
+            "damage": "1d8+1",
+            "description": "A well-crafted sword."
+          },
+          "slot": "weapon",
+          "type": "weapon"
+        },
+        {
+          "id": "dried meat",
+          "name": "dried meat",
+          "properties": {
+            "description": "Salted and preserved.",
+            "heal": "1d6+1"
+          },
+          "type": "consumable"
+        },
+        {
+          "id": "health potion",
+          "name": "health potion",
+          "properties": {
+            "description": "A red vial that glows faintly.",
+            "heal": "2d4+2"
+          },
+          "type": "consumable"
+        }
+      ],
+      "name": "The Bazaar",
+      "type": "market"
+    }
+  ],
+  "current_building": 0,
+  "discovered": true,
+  "name": "Oakdale",
+  "type": "settlement",
+  "x": -2,
+  "y": 0
+}

@@ -1,0 +1,68 @@
+{
+  "buildings": [
+    {
+      "description": "The square bustles with activity, coins change hands rapidly.",
+      "items": [
+        {
+          "id": "enchanted_sword",
+          "name": "enchanted sword",
+          "properties": {
+            "damage": "1d8+3",
+            "description": "A humming with power sword."
+          },
+          "slot": "weapon",
+          "type": "weapon"
+        },
+        {
+          "id": "armor",
+          "name": "armor",
+          "properties": {
+            "description": "Leather armor."
+          },
+          "slot": "body",
+          "type": "armor"
+        }
+      ],
+      "name": "The Bazaar",
+      "type": "market"
+    },
+    {
+      "description": "A bustling inn filled with the smell of roasted meat and ale.",
+      "items": [
+        {
+          "id": "bread",
+          "name": "bread",
+          "properties": {
+            "description": "A crusty loaf, still warm.",
+            "heal": "1d4"
+          },
+          "type": "consumable"
+        }
+      ],
+      "name": "The Prancing Pony",
+      "type": "inn"
+    },
+    {
+      "description": "Incense smoke curls upward, the air feels peaceful.",
+      "items": [
+        {
+          "id": "bread",
+          "name": "bread",
+          "properties": {
+            "description": "A crusty loaf, still warm.",
+            "heal": "1d4"
+          },
+          "type": "consumable"
+        }
+      ],
+      "name": "Shrine of Light",
+      "type": "shrine"
+    }
+  ],
+  "current_building": 0,
+  "discovered": true,
+  "name": "Stoneford",
+  "type": "settlement",
+  "x": 3,
+  "y": -2
+}

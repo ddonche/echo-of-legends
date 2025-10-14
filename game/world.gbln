@@ -1,12 +1,46 @@
 import {locations, items} from data
+import state
 
 act init_world
   say "Generating your starting settlement..."
-  location = locations::generate_settlement()
+  
+  /// Create save directories
+  attempt
+    create_dir!("saves")
+    create_dir!("saves/locations")
+  rescue err
+    say "Warning: Could not create save directories"
+  end
+  
+  /// Generate starting location at (0, 0)
+  location [= generate_location_at(0, 0)
+  
+  if location == nil
+    return nil, nil
+  end
+  
+  /// Create initial game state
+  game_state [= {
+    current_x: 0,
+    current_y: 0
+  }
+  
+  say "Welcome to" ++ location >> name + "!"
+  return location, game_state
+end
+
+act generate_location_at(x, y)
+  /// Generate a new settlement
+  location [= locations::generate_settlement()
   
   if location == nil
     return nil
   end
+  
+  /// Add coordinates and discovery flag
+  put_at!(location, "x", x)
+  put_at!(location, "y", y)
+  put_at!(location, "discovered", true)
   
   /// Populate each building with items
   i = 0
@@ -21,8 +55,24 @@ act init_world
     i = i + 1
   end
   
-  say "Welcome to" ++ location >> name + "!"
+  /// Save the location to disk
+  state::save_location(location)
+  
   return location
+end
+
+act get_or_create_location(x, y)
+  /// Try to load from disk first
+  location [= state::load_location(x, y)
+  
+  if location != nil
+    /// Location exists, return it
+    return location
+  end
+  
+  /// Location doesn't exist, generate it
+  say "Discovering new territory..."
+  return generate_location_at(x, y)
 end
 
 act look(location)
