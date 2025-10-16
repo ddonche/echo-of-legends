@@ -1,0 +1,113 @@
+{
+  "buildings": [
+    {
+      "description": "Incense smoke curls upward, the air feels peaceful.",
+      "items": [
+        {
+          "id": "health potion",
+          "name": "health potion",
+          "properties": {
+            "description": "A red vial that glows faintly.",
+            "heal": "2d4+2"
+          },
+          "type": "consumable"
+        }
+      ],
+      "name": "The Quiet Chapel",
+      "type": "shrine"
+    },
+    {
+      "description": "A cozy tavern with worn wooden tables and a crackling fireplace.",
+      "items": [
+        {
+          "id": "health potion",
+          "name": "health potion",
+          "properties": {
+            "description": "A red vial that glows faintly.",
+            "heal": "2d4+2"
+          },
+          "type": "consumable"
+        },
+        {
+          "id": "health potion",
+          "name": "health potion",
+          "properties": {
+            "description": "A red vial that glows faintly.",
+            "heal": "2d4+2"
+          },
+          "type": "consumable"
+        }
+      ],
+      "name": "The Rusty Mug",
+      "type": "inn"
+    },
+    {
+      "description": "Tables groan under the weight of fruits, cloth, and trinkets.",
+      "items": [
+        {
+          "id": "silver_spear",
+          "name": "silver spear",
+          "properties": {
+            "damage": "1d8+2",
+            "description": "A gleaming and sharp spear."
+          },
+          "slot": "weapon",
+          "type": "weapon"
+        },
+        {
+          "id": "dried meat",
+          "name": "dried meat",
+          "properties": {
+            "description": "Salted and preserved.",
+            "heal": "1d6+1"
+          },
+          "type": "consumable"
+        },
+        {
+          "id": "bread",
+          "name": "bread",
+          "properties": {
+            "description": "A crusty loaf, still warm.",
+            "heal": "1d4"
+          },
+          "type": "consumable"
+        }
+      ],
+      "name": "The Bazaar",
+      "type": "market"
+    },
+    {
+      "description": "Weapons and tools line the walls, glowing embers light the forge.",
+      "items": [
+        {
+          "id": "steel_sword",
+          "name": "steel sword",
+          "properties": {
+            "damage": "1d8+1",
+            "description": "A well-crafted sword."
+          },
+          "slot": "weapon",
+          "type": "weapon"
+        },
+        {
+          "id": "iron_dagger",
+          "name": "iron dagger",
+          "properties": {
+            "damage": "1d4",
+            "description": "A solid and reliable dagger."
+          },
+          "slot": "weapon",
+          "type": "weapon"
+        }
+      ],
+      "name": "Steel & Stone",
+      "type": "blacksmith"
+    }
+  ],
+  "current_building": 0,
+  "discovered": true,
+  "name": "Stoneford",
+  "type": "settlement",
+  "x": 3,
+  "y": -5
+}

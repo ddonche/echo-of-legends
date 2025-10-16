@@ -1,0 +1,28 @@
+{
+  "buildings": [
+    {
+      "description": "A cozy tavern with worn wooden tables and a crackling fireplace.",
+      "items": null,
+      "name": "The Rusty Mug",
+      "type": "inn"
+    },
+    {
+      "description": "The scent of coal and iron hangs heavy in the air.",
+      "items": null,
+      "name": "Steel & Stone",
+      "type": "blacksmith"
+    },
+    {
+      "description": "Candles flicker in the dim interior, casting long shadows.",
+      "items": null,
+      "name": "Temple of the Ancestors",
+      "type": "shrine"
+    }
+  ],
+  "current_building": 0,
+  "discovered": true,
+  "name": "Stoneshire",
+  "type": "settlement",
+  "x": -1,
+  "y": -2
+}

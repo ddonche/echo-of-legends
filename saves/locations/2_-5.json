@@ -1,0 +1,113 @@
+{
+  "buildings": [
+    {
+      "description": "Ancient symbols cover the walls, moss grows between the stones.",
+      "items": [
+        {
+          "id": "health potion",
+          "name": "health potion",
+          "properties": {
+            "description": "A red vial that glows faintly.",
+            "heal": "2d4+2"
+          },
+          "type": "consumable"
+        },
+        {
+          "id": "dried meat",
+          "name": "dried meat",
+          "properties": {
+            "description": "Salted and preserved.",
+            "heal": "1d6+1"
+          },
+          "type": "consumable"
+        }
+      ],
+      "name": "Temple of the Ancestors",
+      "type": "shrine"
+    },
+    {
+      "description": "A quiet establishment with creaky floors and faded tapestries.",
+      "items": [
+        {
+          "id": "bread",
+          "name": "bread",
+          "properties": {
+            "description": "A crusty loaf, still warm.",
+            "heal": "1d4"
+          },
+          "type": "consumable"
+        },
+        {
+          "id": "health potion",
+          "name": "health potion",
+          "properties": {
+            "description": "A red vial that glows faintly.",
+            "heal": "2d4+2"
+          },
+          "type": "consumable"
+        }
+      ],
+      "name": "Wayfarer's Rest",
+      "type": "inn"
+    },
+    {
+      "description": "Tables groan under the weight of fruits, cloth, and trinkets.",
+      "items": [
+        {
+          "id": "rusty_mace",
+          "name": "rusty mace",
+          "properties": {
+            "damage": "1d6-1",
+            "description": "A badly weathered mace."
+          },
+          "slot": "weapon",
+          "type": "weapon"
+        },
+        {
+          "id": "dried meat",
+          "name": "dried meat",
+          "properties": {
+            "description": "Salted and preserved.",
+            "heal": "1d6+1"
+          },
+          "type": "consumable"
+        }
+      ],
+      "name": "The Trading Post",
+      "type": "market"
+    },
+    {
+      "description": "Weapons and tools line the walls, glowing embers light the forge.",
+      "items": [
+        {
+          "id": "enchanted_dagger",
+          "name": "enchanted dagger",
+          "properties": {
+            "damage": "1d4+3",
+            "description": "A humming with power dagger."
+          },
+          "slot": "weapon",
+          "type": "weapon"
+        },
+        {
+          "id": "silver_mace",
+          "name": "silver mace",
+          "properties": {
+            "damage": "1d6+2",
+            "description": "A gleaming and sharp mace."
+          },
+          "slot": "weapon",
+          "type": "weapon"
+        }
+      ],
+      "name": "Steel & Stone",
+      "type": "blacksmith"
+    }
+  ],
+  "current_building": 0,
+  "discovered": true,
+  "name": "Oakhold",
+  "type": "settlement",
+  "x": 2,
+  "y": -5
+}

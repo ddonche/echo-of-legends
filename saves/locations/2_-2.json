@@ -1,0 +1,34 @@
+{
+  "buildings": [
+    {
+      "description": "A hot, smoky workshop filled with the ring of hammer on metal.",
+      "items": [],
+      "name": "Steel & Stone",
+      "type": "blacksmith"
+    },
+    {
+      "description": "Incense smoke curls upward, the air feels peaceful.",
+      "items": [],
+      "name": "The Quiet Chapel",
+      "type": "shrine"
+    },
+    {
+      "description": "Tables groan under the weight of fruits, cloth, and trinkets.",
+      "items": [],
+      "name": "The Trading Post",
+      "type": "market"
+    },
+    {
+      "description": "A cozy tavern with worn wooden tables and a crackling fireplace.",
+      "items": [],
+      "name": "Wayfarer's Rest",
+      "type": "inn"
+    }
+  ],
+  "current_building": 0,
+  "discovered": true,
+  "name": "Greenhold",
+  "type": "settlement",
+  "x": 2,
+  "y": -2
+}

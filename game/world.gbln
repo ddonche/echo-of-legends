@@ -1,6 +1,20 @@
 import {locations, items} from data
 import state
 
+/// need to make sure generated items are always an array, even when empty
+act ensure_array(x)
+  if x == nil
+    return []
+  end
+
+  t = x.valtype
+  judge using t
+    == "array": return x
+    == "unit":  return []
+    else:       return [x]
+  end
+end
+
 act init_world
   say "Generating your starting settlement..."
   
@@ -62,38 +76,41 @@ act generate_location_at(x, y)
 end
 
 act get_or_create_location(x, y)
-  /// Try to load from disk first
-  location [= state::load_location(x, y)
-  
-  if location != nil
-    /// Location exists, return it
-    return location
-  end
-  
-  /// Location doesn't exist, generate it
-  say "Discovering new territory..."
-  return generate_location_at(x, y)
+    /// Try to load from disk first
+    location [= state::load_location(x, y)
+
+    if location != nil
+        /// Normalize any old saves that might have Nil/unit items
+        location = normalize_location_items(location)
+        return location
+    end
+
+    /// Location doesn't exist, generate it
+    say "Discovering new territory..."
+    return generate_location_at(x, y)
 end
 
 act look(location)
-  building = get_current_building(location)
-  
-  say "===" ++ building >> name ++ "==="
-  say building >> description
-  
-  items_list = building >> items
-  item_count = items_list.count
-  
-  if item_count > 0
-    say ""
-    say "You see:"
-    for item in items_list
-      say "  -" ++ item >> name
+    building = get_current_building(location)
+
+    say "===" ++ building >> name ++ "==="
+    say building >> description
+
+    items_list = ensure_array(building >> items)
+
+    say "[dbg] items type = " ++ items_list.valtype
+    item_count = items_list.count
+
+    if item_count > 0
+        say ""
+        say "You see:"
+        for item in items_list
+            say "  -" ++ item >> name
+        end
+    else
+        say ""
+        say "There's nothing of interest here."
     end
-  else
-    say ""
-    say "There's nothing of interest here."
-  end
 end
 
 act get_current_building(location)
@@ -137,7 +154,7 @@ end
 
 act take_item(location, item_id)
     index = location >> current_building
-    items_list = location >> buildings[index] >> items
+    items_list = ensure_array(location >> buildings[index] >> items)
     
     /// Find the item and its index - match by name OR id
     item = nil
@@ -180,7 +197,7 @@ act drop_item(location, item)
     /// Get items list and mutate it
     building_list = location >> buildings
     current_building = building_list[index]
-    items_list = current_building >> items
+    items_list = ensure_array(current_building >> items)
     
     /// Add item to the list
     put_last!(items_list, item)

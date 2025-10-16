@@ -67,25 +67,15 @@ act restore_hero(saved)
 end
 
 /// helper actions
-act get_hero
-    return hero
-end
+act get_hero => hero
 
-act get_hero_health
-    return hero >> stats >> health
-end
+act get_hero_health => hero >> stats >> health
 
-act get_hero_weapon
-    return hero >> equipped >> weapon
-end
+act get_hero_weapon => hero >> equipped >> weapon
 
-act get_hero_strength
-    return hero >> stats >> strength
-end
+act get_hero_strength => hero >> stats >> strength
 
-act get_hero_inventory
-    return hero >> inventory
-end
+act get_hero_inventory => hero >> inventory
 
 /// Display function
 act show_hero

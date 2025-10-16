@@ -1,0 +1,77 @@
+{
+  "buildings": [
+    {
+      "description": "A bustling inn filled with the smell of roasted meat and ale.",
+      "items": [
+        {
+          "id": "bread",
+          "name": "bread",
+          "properties": {
+            "description": "A crusty loaf, still warm.",
+            "heal": "1d4"
+          },
+          "type": "consumable"
+        },
+        {
+          "id": "bread",
+          "name": "bread",
+          "properties": {
+            "description": "A crusty loaf, still warm.",
+            "heal": "1d4"
+          },
+          "type": "consumable"
+        }
+      ],
+      "name": "The Sleeping Dragon",
+      "type": "inn"
+    },
+    {
+      "description": "Incense smoke curls upward, the air feels peaceful.",
+      "items": [
+        {
+          "id": "dried meat",
+          "name": "dried meat",
+          "properties": {
+            "description": "Salted and preserved.",
+            "heal": "1d6+1"
+          },
+          "type": "consumable"
+        }
+      ],
+      "name": "The Quiet Chapel",
+      "type": "shrine"
+    },
+    {
+      "description": "The square bustles with activity, coins change hands rapidly.",
+      "items": [
+        {
+          "id": "iron_mace",
+          "name": "iron mace",
+          "properties": {
+            "damage": "1d6",
+            "description": "A solid and reliable mace."
+          },
+          "slot": "weapon",
+          "type": "weapon"
+        },
+        {
+          "id": "health potion",
+          "name": "health potion",
+          "properties": {
+            "description": "A red vial that glows faintly.",
+            "heal": "2d4+2"
+          },
+          "type": "consumable"
+        }
+      ],
+      "name": "The Bazaar",
+      "type": "market"
+    }
+  ],
+  "current_building": 0,
+  "discovered": true,
+  "name": "Shadowdale",
+  "type": "settlement",
+  "x": 2,
+  "y": -4
+}

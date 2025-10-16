@@ -1,0 +1,28 @@
+{
+  "buildings": [
+    {
+      "description": "Incense smoke curls upward, the air feels peaceful.",
+      "items": null,
+      "name": "Temple of the Ancestors",
+      "type": "shrine"
+    },
+    {
+      "description": "A cozy tavern with worn wooden tables and a crackling fireplace.",
+      "items": null,
+      "name": "Wayfarer's Rest",
+      "type": "inn"
+    },
+    {
+      "description": "The square bustles with activity, coins change hands rapidly.",
+      "items": null,
+      "name": "Market Square",
+      "type": "market"
+    }
+  ],
+  "current_building": 0,
+  "discovered": true,
+  "name": "Stoneford",
+  "type": "settlement",
+  "x": 3,
+  "y": -3
+}

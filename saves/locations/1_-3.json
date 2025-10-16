@@ -1,0 +1,28 @@
+{
+  "buildings": [
+    {
+      "description": "Colorful stalls overflow with goods, merchants call out their wares.",
+      "items": null,
+      "name": "The Trading Post",
+      "type": "market"
+    },
+    {
+      "description": "Ancient symbols cover the walls, moss grows between the stones.",
+      "items": null,
+      "name": "Shrine of Light",
+      "type": "shrine"
+    },
+    {
+      "description": "A cozy tavern with worn wooden tables and a crackling fireplace.",
+      "items": null,
+      "name": "The Prancing Pony",
+      "type": "inn"
+    }
+  ],
+  "current_building": 0,
+  "discovered": true,
+  "name": "Oakdale",
+  "type": "settlement",
+  "x": 1,
+  "y": -3
+}

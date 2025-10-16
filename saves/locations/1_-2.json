@@ -1,0 +1,28 @@
+{
+  "buildings": [
+    {
+      "description": "A hot, smoky workshop filled with the ring of hammer on metal.",
+      "items": [],
+      "name": "Steel & Stone",
+      "type": "blacksmith"
+    },
+    {
+      "description": "Ancient symbols cover the walls, moss grows between the stones.",
+      "items": [],
+      "name": "Temple of the Ancestors",
+      "type": "shrine"
+    },
+    {
+      "description": "A bustling inn filled with the smell of roasted meat and ale.",
+      "items": [],
+      "name": "Wayfarer's Rest",
+      "type": "inn"
+    }
+  ],
+  "current_building": 0,
+  "discovered": true,
+  "name": "Ironhaven",
+  "type": "settlement",
+  "x": 1,
+  "y": -2
+}

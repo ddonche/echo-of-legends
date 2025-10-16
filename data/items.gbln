@@ -108,19 +108,21 @@ end
 
 act default_items
   if roll 1d2 == 1
-    return generate_weapon()
+    return [generate_weapon()]
   else
-    return generate_consumable()
+    return [generate_consumable()]
   end
 end
 
 /// Populate a building with random items
 act populate_building_items(building_type)
+  inv = []
   judge using building_type
-    == "blacksmith": blacksmith_items()
-    == "inn": inn_items()
-    == "market": market_items()
-    == "shrine": shrine_items()
-    else: default_items()
+    == "blacksmith": inv = blacksmith_items()
+    == "inn":        inv = inn_items()
+    == "market":     inv = market_items()
+    == "shrine":     inv = shrine_items()
+    else:            inv = default_items()
   end
+  return inv
 end

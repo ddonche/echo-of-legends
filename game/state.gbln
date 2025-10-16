@@ -21,9 +21,7 @@ act load_location(x, y)
 end
 
 /// Save current hero to disk
-act save_hero(hero)
-  write_json!("saves/current_hero.json", hero, true)
-end
+act save_hero(hero) => write_json!("saves/current_hero.json", hero, true)
 
 /// Load hero, returns nil if not found
 act load_hero()

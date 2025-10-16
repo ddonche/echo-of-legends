@@ -1,0 +1,34 @@
+{
+  "buildings": [
+    {
+      "description": "Ancient symbols cover the walls, moss grows between the stones.",
+      "items": null,
+      "name": "The Quiet Chapel",
+      "type": "shrine"
+    },
+    {
+      "description": "A cozy tavern with worn wooden tables and a crackling fireplace.",
+      "items": null,
+      "name": "The Sleeping Dragon",
+      "type": "inn"
+    },
+    {
+      "description": "A hot, smoky workshop filled with the ring of hammer on metal.",
+      "items": null,
+      "name": "Steel & Stone",
+      "type": "blacksmith"
+    },
+    {
+      "description": "Colorful stalls overflow with goods, merchants call out their wares.",
+      "items": null,
+      "name": "Market Square",
+      "type": "market"
+    }
+  ],
+  "current_building": 0,
+  "discovered": true,
+  "name": "Stonedale",
+  "type": "settlement",
+  "x": 0,
+  "y": -2
+}
