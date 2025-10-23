@@ -76,18 +76,16 @@ act generate_location_at(x, y)
 end
 
 act get_or_create_location(x, y)
-    /// Try to load from disk first
-    location [= state::load_location(x, y)
+  /// Try to load from disk first
+  location [= state::load_location(x, y)
 
-    if location != nil
-        /// Normalize any old saves that might have Nil/unit items
-        location = normalize_location_items(location)
-        return location
-    end
+  if location != nil
+    return location
+  end
 
-    /// Location doesn't exist, generate it
-    say "Discovering new territory..."
-    return generate_location_at(x, y)
+  /// Location doesn't exist, generate it
+  say "Discovering new territory..."
+  return generate_location_at(x, y)
 end
 
 act look(location)
