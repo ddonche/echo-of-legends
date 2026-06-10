@@ -1,0 +1,7 @@
+name: echo-of-legends
+version: 0.1.0
+entry: main.gob
+
+module_paths:
+  game: ./game
+  data: ./data
